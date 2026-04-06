@@ -1,12 +1,12 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.3.13",
-    "lastTouchedAt": "2026-03-25T12:02:57.605Z"
+    "lastTouchedAt": "2026-04-06T02:35:36.645Z"
   },
   "wizard": {
-    "lastRunAt": "2026-02-05T16:16:05.545Z",
-    "lastRunVersion": "2026.2.1",
-    "lastRunCommand": "onboard",
+    "lastRunAt": "2026-04-06T02:35:36.617Z",
+    "lastRunVersion": "2026.3.13",
+    "lastRunCommand": "doctor",
     "lastRunMode": "local"
   },
   "update": {
@@ -219,7 +219,8 @@
       "fetch": {
         "enabled": false
       }
-    }
+    },
+    "elevated": {}
   },
   "messages": {
     "ackReactionScope": "group-mentions"
@@ -242,7 +243,7 @@
       "domain": "feishu",
       "enabled": true,
       "groupAllowFrom": [],
-      "groupPolicy": "open",
+      "groupPolicy": "allowlist",
       "requireMention": true,
       "streaming": true
     }
@@ -256,7 +257,7 @@
       "allowedOrigins": [
         "https://dev.coze.site"
       ],
-      "dangerouslyDisableDeviceAuth": true
+      "dangerouslyDisableDeviceAuth": false
     },
     "auth": {
       "mode": "token",
@@ -408,20 +409,20 @@
     "installs": {
       "coze-openclaw-plugin": {
         "source": "npm",
-        "spec": "coze-openclaw-plugin",
+        "spec": "coze-openclaw-plugin@0.1.15",
         "installPath": "/workspace/projects/extensions/coze-openclaw-plugin",
-        "version": "0.1.14",
+        "version": "0.1.15",
         "resolvedName": "coze-openclaw-plugin",
-        "resolvedVersion": "0.1.14",
-        "resolvedSpec": "coze-openclaw-plugin@0.1.14",
-        "integrity": "sha512-9+UmBxkaKAQgXu0AgXBrjhLlEp7mFDoualIYQbkhy4edvJ00aX9tBcXcPVavRxceiNkNdTCc67e8bygWvU+Bhg==",
-        "shasum": "2599eee16288ba537b1975cbcf44cf794e3ee7a9",
-        "resolvedAt": "2026-03-25T12:02:19.259Z",
-        "installedAt": "2026-03-25T12:02:46.569Z"
+        "resolvedVersion": "0.1.15",
+        "resolvedSpec": "coze-openclaw-plugin@0.1.15",
+        "integrity": "sha512-kOXnq3Dt/aZh6GstdBJeDt3FNOWzg7g63IdGGzjuYi+4LSsvgmRBa1PLhbZvnJs851gF3ULltk2Gv+at4gbpjw==",
+        "shasum": "a3f71cc988b173e42bdd98500abfd46389ad23a9",
+        "resolvedAt": "2026-03-26T10:51:19.481Z",
+        "installedAt": "2026-03-26T10:51:43.415Z"
       },
       "openclaw-cozeloop-trace": {
         "source": "npm",
-        "spec": "@cozeloop/openclaw-cozeloop-trace",
+        "spec": "@cozeloop/openclaw-cozeloop-trace@0.1.1",
         "installPath": "/workspace/projects/extensions/openclaw-cozeloop-trace",
         "version": "0.1.1",
         "resolvedName": "@cozeloop/openclaw-cozeloop-trace",
@@ -434,7 +435,7 @@
       },
       "openclaw-lark": {
         "source": "npm",
-        "spec": "@larksuite/openclaw-lark",
+        "spec": "@larksuite/openclaw-lark@2026.3.17",
         "installPath": "/workspace/projects/extensions/openclaw-lark",
         "version": "2026.3.17",
         "resolvedName": "@larksuite/openclaw-lark",
@@ -447,7 +448,7 @@
       },
       "openclaw-weixin": {
         "source": "npm",
-        "spec": "@tencent-weixin/openclaw-weixin",
+        "spec": "@tencent-weixin/openclaw-weixin@1.0.2",
         "installPath": "/workspace/projects/extensions/openclaw-weixin",
         "version": "1.0.2",
         "resolvedName": "@tencent-weixin/openclaw-weixin",
