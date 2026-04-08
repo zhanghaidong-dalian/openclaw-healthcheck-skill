@@ -260,7 +260,7 @@
       "allowedOrigins": [
         "https://dev.coze.site"
       ],
-      "dangerouslyDisableDeviceAuth": false
+      "dangerouslyDisableDeviceAuth": true
     },
     "auth": {
       "mode": "token",
