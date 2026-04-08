@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.4.8",
-    "lastTouchedAt": "2026-04-08T10:20:25.560Z"
+    "lastTouchedAt": "2026-04-08T11:04:16.505Z"
   },
   "wizard": {
     "lastRunAt": "2026-04-06T02:35:36.617Z",
@@ -437,7 +437,7 @@
         "source": "npm",
         "spec": "@larksuite/openclaw-lark@2026.3.17",
         "installPath": "/workspace/projects/extensions/openclaw-lark",
-        "version": "2026.3.17",
+        "version": "2026.4.7",
         "resolvedName": "@larksuite/openclaw-lark",
         "resolvedVersion": "2026.3.17",
         "resolvedSpec": "@larksuite/openclaw-lark@2026.3.17",
