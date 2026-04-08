@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.4.8",
-    "lastTouchedAt": "2026-04-08T10:10:36.436Z"
+    "lastTouchedAt": "2026-04-08T10:20:25.560Z"
   },
   "wizard": {
     "lastRunAt": "2026-04-06T02:35:36.617Z",
@@ -387,7 +387,7 @@
         }
       },
       "feishu": {
-        "enabled": false
+        "enabled": true
       },
       "openclaw-cozeloop-trace": {
         "enabled": true,
