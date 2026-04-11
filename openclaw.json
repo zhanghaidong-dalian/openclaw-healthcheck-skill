@@ -196,7 +196,7 @@
         }
       },
       "compaction": {
-        "mode": "safeguard"
+        "mode": "default"
       },
       "maxConcurrent": 4,
       "subagents": {
