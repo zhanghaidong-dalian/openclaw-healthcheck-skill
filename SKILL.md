@@ -3,7 +3,7 @@ name: healthcheck
 description: OpenClaw 主机安全加固与风险评估工具。适用于安全审计、防火墙/SSH加固、更新管理、风险暴露检查、定时监控等场景。支持 VPS、云服务器、本地工作站、Docker 容器、沙盒环境等多种部署形态。
 keywords: [security, audit, hardening, firewall, ssh, update, cron, 安全, 审计, 加固, 防火墙]
 author: OpenClaw Community
-version: 4.6.8
+version: 4.6.9
 language: zh-CN, en
 tags: [security, system, maintenance]
 ---
