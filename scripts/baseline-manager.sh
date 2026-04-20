@@ -1,8 +1,6 @@
+#!/bin/bash
 # Home变量默认值处理（兼容沙盒环境）
 : "${HOME:=/tmp}"
-
-
-#!/bin/bash
 # HealthCheck Baseline Manager - 安全基线管理
 # 版本: v3.0.0
 # 用途: 建立和管理系统安全基线快照
@@ -37,6 +35,7 @@ validate_baseline_name() {
     fi
 
     return 0
+}
 
 # 创建系统基线快照
 create_baseline() {
@@ -331,4 +330,3 @@ main() {
 }
 
 main "$@"
-}

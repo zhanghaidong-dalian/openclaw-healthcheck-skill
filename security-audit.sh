@@ -59,7 +59,7 @@ for playbook in "${playbooks[@]}"; do
         # 检查删除文件
         if grep -q 'rm -rf\|rm -f' "$SKILL_DIR/$file" 2>/dev/null; then
             echo "- 🔴 **Critical**: $playbook - 包含文件删除操作"
-            critical_issues=$((critical_issues + 1)))
+            critical_issues=$((critical_issues + 1))
             total_issues=$((total_issues + 1))
         fi
     fi
@@ -80,7 +80,7 @@ for dash_file in "${dashboard_files[@]}"; do
         # 检查硬编码凭据
         if grep -qE '(password|secret|token|key|api.*key)\s*=|["\x27].*["\x27]' "$SKILL_DIR/$dash_file" 2>/dev/null; then
             echo "- 🔴 **Critical**: $dash_file - 检测到硬编码的凭据"
-            critical_issues=$((critical_issues + 1)))
+            critical_issues=$((critical_issues + 1))
             total_issues=$((total_issues + 1))
         fi
     fi
@@ -96,7 +96,7 @@ for script in "false-positive-tracker.sh baseline-manager.sh drift-detector.sh";
     if [ -f "$SKILL_DIR/scripts/$script" ]; then
         if grep -q "cat \.\*" "$SKILL_DIR/scripts/$script" 2>/dev/null; then
             echo "- 🔴 **Critical**: $script - 发现未验证的路径操作"
-            critical_issues=$((critical_issues + 1)))
+            critical_issues=$((critical_issues + 1))
             total_issues=$((total_issues + 1))
         fi
     fi
@@ -108,7 +108,7 @@ for script in "false-positive-tracker.sh"; do
     if [ -f "$SKILL_DIR/scripts/$script" ]; then
         if grep -q "sudo\|chmod 777\|rm -rf" "$SKILL_DIR/scripts/$script" 2>/dev/null; then
             echo "- 🟠️ High: $script - 发现权限提升操作"
-            high_issues=$((high_issues + 1)))
+            high_issues=$((high_issues + 1))
             total_issues=$((total_issues + 1))
         fi
     fi
@@ -118,7 +118,7 @@ done
 echo "[5/6] 检查敏感信息..."
 if grep -r -l "sk-\|password\|secret\|token" "$SKILL_DIR" 2>/dev/null | grep -v ".git\|CHANGELOG\|PLAN\|RELEASE\|node_modules\|\.git"; then
     echo "- 🟡 Medium: 发现敏感信息模式"
-    medium_issues=$((medium_issues + 1)))
+    medium_issues=$((medium_issues + 1))
     total_issues=$((total_issues + 1))
 fi
 
