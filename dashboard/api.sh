@@ -4,27 +4,37 @@
 
 set -e
 
-API_DIR="${HOME}/.openclawhealthcheck/api"
+API_DIR="${HOME}/.openclaw/healthcheck/api"
 API_PORT=8888
 LOG_FILE="${API_DIR}/api.log"
 PID_FILE="${API_DIR}/api.pid"
 
 # 初始化API目录
-init_api
+init_api() {
+    if [ ! -d "$API_DIR" ]; then
+        mkdir -p "$API_DIR"
+        echo "✅ API目录已创建: $API_DIR"
+    fi
+}
 
 # 启动API服务器
 start_api() {
     echo "🚀 启动API服务器..."
-    cd "$API_DIR" && nohup python3 -m uvicorn api:app:api:app "${API_DIR}" host 0.0.0.0.0.0:$API_PORT" >> "$LOG_FILE" 2>&1 &
-        echo "✅ API服务器已启动在 $API_PORT 端口"
-        
-        # 保存PID
-        echo $$! > "$PID_FILE"
-    else
+    
+    # 检查是否已在运行
+    if [ -f "$PID_FILE" ] && kill -0 "$(cat "$PID_FILE")" 2>/dev/null; then
         echo "❌ API服务器已在运行 (PID: $(cat $PID_FILE))"
         echo ""
-        echo "使用 'stop_api.sh' 停止服务器"
+        echo "使用 './api.sh stop' 停止服务器"
+        return 1
     fi
+    
+    cd "$API_DIR" && nohup python3 -m uvicorn api:app --host 0.0.0.0 --port "$API_PORT" >> "$LOG_FILE" 2>&1 &
+    echo $! > "$PID_FILE"
+    
+    echo "✅ API服务器已启动在 $API_PORT 端口"
+    echo "   PID: $(cat $PID_FILE)"
+    echo "   日志: $LOG_FILE"
 }
 
 # 停止API服务器
@@ -36,14 +46,14 @@ stop_api() {
     
     local pid=$(cat "$PID_FILE")
     echo "正在停止API服务器 (PID: $pid)..."
-    kill $pid
-    rm "$PID_FILE"
+    kill $pid 2>/dev/null || true
+    rm -f "$PID_FILE"
     echo "✅ API服务器已停止"
 }
 
 # API状态
 api_status() {
-    if pgrep -f "uvicorn.*api:app:.*$API_DIR" > /dev/null 2>&1; then
+    if pgrep -f "uvicorn.*api:app" > /dev/null 2>&1; then
         echo "✅ API服务器运行中 (端口: $API_PORT)"
         return 0
     else
@@ -54,7 +64,7 @@ api_status() {
 
 # 显示帮助
 show_help() {
-    cat << 'EOF'
+    cat << EOF
 HealthCheck Dashboard API Server v4.0.0
 
 用法: $0 [命令] [参数]
@@ -63,7 +73,7 @@ HealthCheck Dashboard API Server v4.0.0
   init                  初始化API目录和文件
   start                 启动API服务器
   stop                  停止API服务器
-  status                 查看API服务状态
+  status                查看API服务状态
   help                  显示此帮助
 
 示例:
@@ -89,22 +99,26 @@ main() {
     init_api
     
     case "${1:-start}" in
-        start_api
-        ;;
-        "stop")
-        stop_api
-        ;;
-        "status")
-        api_status
-        ;;
-        "help"|--help|-h)
-        show_help
-        ;;
+        start)
+            start_api
+            ;;
+        stop)
+            stop_api
+            ;;
+        status)
+            api_status
+            ;;
+        init)
+            echo "✅ API目录已初始化"
+            ;;
+        help|--help|-h)
+            show_help
+            ;;
         *)
-        echo "❌ 未知命令: $1"
-        show_help
-        exit 1
-        ;;
+            echo "❌ 未知命令: $1"
+            show_help
+            exit 1
+            ;;
     esac
 }
 

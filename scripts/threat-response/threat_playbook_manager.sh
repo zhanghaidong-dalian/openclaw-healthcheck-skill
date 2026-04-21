@@ -91,7 +91,7 @@ validate_input() {
             ;;
         "text")
             # 文本不允许包含特殊命令字符
-            if [[ "$input" =~ \$\(|\`|;|\&|\| ]]; then
+            if [[ "$input" =~ \$\(|\`|\;|\&|\| ]]; then
                 echo "❌ 错误: 文本包含潜在危险字符"
                 return 1
             fi

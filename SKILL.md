@@ -6015,7 +6015,7 @@ $ openclaw security audit --notify critical-only
 
 | 虾评平台版本 | 功能版本 | 发布日期 | 核心功能 |
 |---------|---------|---------|---------|
-| **4.7.2** | **4.7.2** | **2026-04-21** | **脚本语法修复+沙盒环境兼容性优化** |
+| **4.7.2** | **4.7.2** | **2026-04-21** | **全面脚本语法修复+重大Bug修复** |
 | **4.7.0** | **4.7.0** | **2026-04-19** | **最容易被误判的一步+工具检查项清单+容器预判** |
 | **4.6.5** | **4.6.5** | **2026-04-12** | **工具组合审计+环境变量防护增强** |
 | 4.5.7 | v4.5.7 | 2026-04-06 | 文档准确性修复 |
@@ -6093,11 +6093,105 @@ $ openclaw security audit --notify critical-only
 
 ---
 
-## 4.7.2 (2026-04-21) - 脚本语法修复+沙盒环境兼容性优化 🐛
+## 4.7.3 (2026-04-21) - 全面脚本语法修复+重大Bug修复 🐛🐛
 
-> 🐛 **Bug修复版本**：修复虾评平台用户反馈的脚本问题，提升沙盒环境兼容性
+> 🐛🐛 **紧急Bug修复版本**：全面审查并修复所有脚本中的语法错误
 
-### 🐛 修复内容
+### 🐛 修复内容（本次全面审查发现）
+
+#### 1. dashboard/api.sh 完全重写 ⭐FIXED
+**问题**: 该文件存在结构性错误，包括：
+- `else` 没有匹配的 `if`
+- 未定义的函数调用 `init_api`
+- `case` 语句错误（`start_api` 而非 `start`）
+- uvicorn 命令行参数混乱
+
+**修复**: 完全重写脚本，确保：
+- 所有函数正确定义和调用
+- 正确的流程控制结构
+- 规范的 case 语句
+- 添加 HOME 变量默认值处理
+
+**影响范围**: `dashboard/api.sh`
+
+#### 2. ai-analyzer/anomaly_detector.sh 简化重写 ⭐FIXED
+**问题**: 该文件存在大量语法错误：
+- 多处未闭合的单引号（awk 命令中）
+- 未闭合的括号（bc 命令中）
+- 复杂的命令替换嵌套错误
+- 未闭合的字符串
+
+**修复**: 
+- 简化重写，使用更简单的命令避免复杂嵌套
+- 修复所有引号匹配问题
+- 添加 HOME 变量默认值处理
+- 保持核心功能（指标收集、基线学习、异常检测）
+
+**影响范围**: `scripts/ai-analyzer/anomaly_detector.sh`
+
+#### 3. threat-response/playbooks/rate-limit.sh 完全重写 ⭐FIXED
+**问题**: 
+- 存在孤立的 `fi`（没有匹配的 `if`）
+- 混乱的命令重定向 `| tee -a > 80:80`
+- 语法错误的 tc 命令
+- heredoc 单引号问题
+
+**修复**: 完全重写脚本，确保：
+- 正确的条件语句结构
+- 合理的命令流程
+- 使用无引号 heredoc 以支持变量扩展
+- 添加 HOME 变量默认值处理
+
+**影响范围**: `scripts/threat-response/playbooks/rate-limit.sh`
+
+#### 4. threat-response/threat_playbook_manager.sh 修复 ⭐FIXED
+**问题**: 正则表达式中的特殊字符导致语法错误
+```bash
+if [[ "$input" =~ \$\(|\`|;|\&|\| ]]; then
+```
+
+**修复**: 转义分号字符
+```bash
+if [[ "$input" =~ \$\(|\`|\;|\&|\| ]]; then
+```
+
+**影响范围**: `scripts/threat-response/threat_playbook_manager.sh`
+
+### 📊 本次修复统计
+
+| 文件 | 问题严重程度 | 修复方式 |
+|------|-------------|---------|
+| `dashboard/api.sh` | 🔴 Critical | 完全重写 |
+| `anomaly_detector.sh` | 🔴 Critical | 简化重写 |
+| `rate-limit.sh` | 🔴 Critical | 完全重写 |
+| `threat_playbook_manager.sh` | 🟠 High | 正则修复 |
+
+### ✅ 验证结果
+
+所有 24 个脚本文件均已通过 `bash -n` 语法检查：
+```bash
+✅ ./dashboard/api.sh
+✅ ./examples/scripts/basic-cve-check.sh
+✅ ./examples/scripts/malicious-skill-scan.sh
+✅ ./scripts/ai-analyzer/anomaly_detector.sh
+✅ ./scripts/auto-fixer.sh
+✅ ./scripts/backup-functions.sh
+✅ ./scripts/baseline-manager.sh
+... (全部24个脚本)
+🎉 所有脚本语法检查通过！
+```
+
+### 🎯 致谢
+
+感谢用户反复提醒进行"全面确认"，促使我们进行了这次全面审查，发现了更多隐藏的语法问题。
+
+---
+
+## 4.7.2 (2026-04-21) - 全面脚本语法修复+重大Bug修复 🐛🐛
+
+> 🐛🐛 **紧急Bug修复版本**：全面审查并修复所有脚本中的语法错误
+
+### 🐛 第一轮修复（用户反馈）
 
 #### 1. 恶意技能扫描脚本语法错误修复 ⭐FIXED
 **问题**: `malicious-skill-scan.sh` 在主执行流中使用 `local` 关键字导致 `unexpected EOF while looking for matching` 错误
@@ -6129,19 +6223,112 @@ $ openclaw security audit --notify critical-only
 - `examples/scripts/basic-cve-check.sh`
 - `examples/scripts/malicious-skill-scan.sh`
 
+### 🐛 第二轮修复（全面审查）
+
+#### 4. dashboard/api.sh 完全重写 ⭐FIXED
+**问题**: 该文件存在结构性错误，包括：
+- `else` 没有匹配的 `if`
+- 未定义的函数调用 `init_api`
+- `case` 语句错误（`start_api` 而非 `start`）
+- uvicorn 命令行参数混乱
+
+**修复**: 完全重写脚本，确保：
+- 所有函数正确定义和调用
+- 正确的流程控制结构
+- 规范的 case 语句
+- 添加 HOME 变量默认值处理
+
+**影响范围**: `dashboard/api.sh`
+
+#### 5. ai-analyzer/anomaly_detector.sh 简化重写 ⭐FIXED
+**问题**: 该文件存在大量语法错误：
+- 多处未闭合的单引号（awk 命令中）
+- 未闭合的括号（bc 命令中）
+- 复杂的命令替换嵌套错误
+- 未闭合的字符串
+
+**修复**: 
+- 简化重写，使用更简单的命令避免复杂嵌套
+- 修复所有引号匹配问题
+- 添加 HOME 变量默认值处理
+- 保持核心功能（指标收集、基线学习、异常检测）
+
+**影响范围**: `scripts/ai-analyzer/anomaly_detector.sh`
+
+#### 6. threat-response/playbooks/rate-limit.sh 完全重写 ⭐FIXED
+**问题**: 
+- 存在孤立的 `fi`（没有匹配的 `if`）
+- 混乱的命令重定向 `| tee -a > 80:80`
+- 语法错误的 tc 命令
+- heredoc 单引号问题
+
+**修复**: 完全重写脚本，确保：
+- 正确的条件语句结构
+- 合理的命令流程
+- 使用无引号 heredoc 以支持变量扩展
+- 添加 HOME 变量默认值处理
+
+**影响范围**: `scripts/threat-response/playbooks/rate-limit.sh`
+
+#### 7. threat-response/threat_playbook_manager.sh 修复 ⭐FIXED
+**问题**: 正则表达式中的特殊字符导致语法错误
+```bash
+if [[ "$input" =~ \$\(|\`|;|\&|\| ]]; then
+```
+
+**修复**: 转义分号字符
+```bash
+if [[ "$input" =~ \$\(|\`|\;|\&|\| ]]; then
+```
+
+**影响范围**: `scripts/threat-response/threat_playbook_manager.sh`
+
 ### 📊 修复统计
 
 | 问题类型 | 修复数量 | 状态 |
 |---------|---------|------|
-| 语法错误 | 2 个 | ✅ 已修复 |
-| 变量扩展问题 | 1 个 | ✅ 已修复 |
-| HOME 变量兼容 | 2 个脚本 | ✅ 已修复 |
+| 语法错误 | 7 个文件 | ✅ 已修复 |
+| 变量扩展问题 | 2 个文件 | ✅ 已修复 |
+| HOME 变量兼容 | 5 个脚本 | ✅ 已修复 |
+
+### ✅ 验证结果
+
+所有 **24 个脚本文件** 均已通过 `bash -n` 语法检查：
+```bash
+✅ ./dashboard/api.sh
+✅ ./examples/scripts/basic-cve-check.sh
+✅ ./examples/scripts/malicious-skill-scan.sh
+✅ ./scripts/ai-analyzer/anomaly_detector.sh
+✅ ./scripts/auto-fixer.sh
+✅ ./scripts/backup-functions.sh
+✅ ./scripts/baseline-manager.sh
+✅ ./scripts/container-detector.sh
+✅ ./scripts/data/cleaner.sh
+✅ ./scripts/data-lifecycle-manager.sh
+✅ ./scripts/drift-detector.sh
+✅ ./scripts/env-leak-detector.sh
+✅ ./scripts/false-positive-tracker.sh
+✅ ./scripts/logging-functions.sh
+✅ ./scripts/memory-auditor.sh
+✅ ./scripts/one-click-hardening.sh
+✅ ./scripts/permission-fixer.sh
+✅ ./scripts/quick-start.sh
+✅ ./scripts/security-checks.sh
+✅ ./scripts/threat-response/playbooks/isolate-ssh.sh
+✅ ./scripts/threat-response/playbooks/lock-user.sh
+✅ ./scripts/threat-response/playbooks/rate-limit.sh
+✅ ./scripts/threat-response/threat_playbook_manager.sh
+✅ ./scripts/tool-combination-auditor.sh
+✅ ./security-audit.sh
+🎉 所有脚本语法检查通过！
+```
 
 ### 🎯 致谢
 
 感谢虾评平台用户的反馈：
 - 匿名用户 - 脚本语法错误报告
 - 社区反馈 - 沙盒环境兼容性问题
+- haidong - 反复提醒进行"全面确认"，促使我们进行了这次全面审查
 
 ---
 
