@@ -84,9 +84,17 @@ create_baseline() {
     echo "🌐 收集网络配置..."
     baseline_data+="\"network_config\":{"
     baseline_data+="\"hostname\":\"$(hostname)\","
-    baseline_data+="\"interfaces\":$(ip -j addr show 2>/dev/null || echo '[]'),"
-    baseline_data+="\"routes\":$(ip -j route show 2>/dev/null || echo '[]'),"
-    baseline_data+="\"listeners\":$(ss -tlnp -j 2>/dev/null || echo '[]')"
+    # 使用 tr 移除控制字符，避免 JSON 解析错误
+    # 如果输出为空，使用默认值
+    local interfaces_json=$(ip -j addr show 2>/dev/null | tr -d '\000-\037')
+    [ -z "$interfaces_json" ] && interfaces_json='[]'
+    local routes_json=$(ip -j route show 2>/dev/null | tr -d '\000-\037')
+    [ -z "$routes_json" ] && routes_json='[]'
+    local listeners_json=$(ss -tlnp -j 2>/dev/null | tr -d '\000-\037')
+    [ -z "$listeners_json" ] && listeners_json='[]'
+    baseline_data+="\"interfaces\":$interfaces_json,"
+    baseline_data+="\"routes\":$routes_json,"
+    baseline_data+="\"listeners\":$listeners_json"
     baseline_data+="},"
     
     # 收集用户和组
@@ -99,10 +107,14 @@ create_baseline() {
     
     # 收集服务状态
     echo "⚙️  收集服务状态..."
+    # 清理控制字符，避免JSON格式错误
+    local ssh_status=$(systemctl is-active sshd 2>/dev/null | tr -cd '[:print:]' || echo 'unknown')
+    local fw_status=$(systemctl is-active ufw 2>/dev/null | tr -cd '[:print:]' || systemctl is-active firewalld 2>/dev/null | tr -cd '[:print:]' || echo 'unknown')
+    local running_services=$(systemctl list-units --state=running --type=service 2>/dev/null | wc -l)
     baseline_data+="\"services\":{"
-    baseline_data+="\"ssh\":\"$(systemctl is-active sshd 2>/dev/null || echo 'unknown')\","
-    baseline_data+="\"firewall\":\"$(systemctl is-active ufw 2>/dev/null || systemctl is-active firewalld 2>/dev/null || echo 'unknown')\","
-    baseline_data+="\"total_running\":$(systemctl list-units --state=running --type=service 2>/dev/null | wc -l)"
+    baseline_data+="\"ssh\":\"${ssh_status}\","
+    baseline_data+="\"firewall\":\"${fw_status}\","
+    baseline_data+="\"total_running\":${running_services}"
     baseline_data+="},"
     
     # 收集SSH配置

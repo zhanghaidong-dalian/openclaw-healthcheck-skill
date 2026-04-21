@@ -156,15 +156,15 @@ for skill in "${INSTALLED_SKILLS[@]}"; do
     echo ""
     echo "扫描: ${skill}"
     
-    local result=""
-    local risk_level="safe"
-    local details=""
+    result=""
+    risk_level="safe"
+    details=""
     
     # 检查是否在恶意列表中
-    local malicious_check=$(check_malicious_list "$skill")
+    malicious_check=$(check_malicious_list "$skill")
     if [ "$malicious_check" != "CLEAN" ]; then
-        local risk=$(echo "$malicious_check" | cut -d':' -f2)
-        local campaign=$(echo "$malicious_check" | cut -d':' -f3)
+        risk=$(echo "$malicious_check" | cut -d':' -f2)
+        campaign=$(echo "$malicious_check" | cut -d':' -f3)
         
         echo "  🔴 [MALICIOUS] 发现已知恶意技能!"
         echo "     风险: ${risk}"
@@ -180,11 +180,11 @@ for skill in "${INSTALLED_SKILLS[@]}"; do
     fi
     
     # 检查可疑代码模式
-    local skill_dir="${HOME}/.openclaw/skills/${skill}"
+    skill_dir="${HOME}/.openclaw/skills/${skill}"
     if [ -d "$skill_dir" ]; then
-        local suspicious_check=$(check_suspicious_patterns "$skill_dir")
+        suspicious_check=$(check_suspicious_patterns "$skill_dir")
         if [ "$suspicious_check" != "CLEAN" ]; then
-            local patterns=$(echo "$suspicious_check" | cut -d':' -f2)
+            patterns=$(echo "$suspicious_check" | cut -d':' -f2)
             
             echo "  ⚠️  [SUSPICIOUS] 发现可疑代码模式"
             echo "     模式: ${patterns}"

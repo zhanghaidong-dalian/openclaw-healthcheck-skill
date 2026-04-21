@@ -73,10 +73,12 @@ detect_privileged() {
         return 0
     fi
     
-    # 方法2: 检查 cap_sys_admin
-    if capsh --print 2>/dev/null | grep -q "cap_sys_admin"; then
-        IS_PRIVILEGED=true
-        return 0
+    # 方法2: 检查 cap_sys_admin (添加超时避免卡住)
+    if command -v capsh >/dev/null 2>&1; then
+        if timeout 2 capsh --print 2>/dev/null | grep -q "cap_sys_admin"; then
+            IS_PRIVILEGED=true
+            return 0
+        fi
     fi
     
     # 方法3: 尝试访问主机设备
@@ -181,10 +183,10 @@ main() {
     echo ""
     
     # 执行检测
-    detect_container
+    detect_container || true
     
     if [ "$IS_CONTAINER" = true ]; then
-        detect_privileged
+        detect_privileged || true
     fi
     
     # 确定跳过的检查项

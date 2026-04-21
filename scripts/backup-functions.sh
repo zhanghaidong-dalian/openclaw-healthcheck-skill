@@ -1,8 +1,7 @@
+#!/bin/bash
 # Home变量默认值处理（兼容沙盒环境）
 : "${HOME:=/tmp}"
 
-
-#!/bin/bash
 # Backup Functions - 备份函数库
 # 版本: 4.0.0
 # 用途: 提供自动备份和恢复功能

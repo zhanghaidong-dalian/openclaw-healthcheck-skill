@@ -1,8 +1,7 @@
+#!/bin/bash
 # Home变量默认值处理（兼容沙盒环境）
 : "${HOME:=/tmp}"
 
-
-#!/bin/bash
 # HealthCheck Drift Detector - 配置漂移检测
 # 版本: v3.0.0
 # 用途: 检测系统配置相对于基线的变化
