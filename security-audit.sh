@@ -12,7 +12,7 @@ echo "审计开始时间: $(date)"
 echo ""
 
 # 初始化报告
-cat > "$AUDIT_REPORT" << 'EOF'
+cat > "$AUDIT_REPORT" << EOF
 # HealthCheck 安全审计报告
 
 **审计时间**: $(date)
@@ -125,7 +125,7 @@ fi
 # 6. 生成总结
 echo "[6/6] 生成审计总结..."
 
-cat >> "$AUDIT_REPORT" << 'EOF'
+cat >> "$AUDIT_REPORT" << EOF
 
 ## 📊 审计结果
 
@@ -152,7 +152,7 @@ cat >> "$AUDIT_REPORT" << 'EOF'
    - 建议: 使用环境变量或配置文件
 
 3. **路径遍历漏洞** - 使用未验证的路径操作
-   - 文件: 多个脚本使用 `cat ./*` 等未验证路径
+   - 文件: 多个脚本使用 \`cat ./*\` 等未验证路径
    - 风险: 可能泄露敏感文件信息
    - 建议: 验证路径存在性和权限
 

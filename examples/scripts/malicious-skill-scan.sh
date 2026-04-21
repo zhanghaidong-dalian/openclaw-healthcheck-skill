@@ -1,4 +1,7 @@
 #!/bin/bash
+# Home变量默认值处理（兼容沙盒环境）
+: "${HOME:=/tmp}"
+
 # Malicious Skill Scanner - 恶意技能扫描脚本
 # 版本: v2.2.0
 # 用途: 演示如何独立扫描已安装技能
@@ -233,7 +236,7 @@ echo "  \"suspicious_count\": ${SUSPICIOUS_COUNT},"
 echo "  \"clean_count\": ${CLEAN_COUNT},"
 echo "  \"results\": ["
 
-local first=true
+first=true
 for result in "${SCAN_RESULTS[@]}"; do
     if [ "$first" = true ]; then
         first=false

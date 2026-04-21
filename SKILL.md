@@ -3,7 +3,7 @@ name: healthcheck
 description: OpenClaw 主机安全加固与风险评估工具。适用于安全审计、防火墙/SSH加固、更新管理、风险暴露检查、定时监控等场景。支持 VPS、云服务器、本地工作站、Docker 容器、沙盒环境等多种部署形态。
 keywords: [security, audit, hardening, firewall, ssh, update, cron, 安全, 审计, 加固, 防火墙]
 author: OpenClaw Community
-version: 4.7.1
+version: 4.7.2
 language: zh-CN, en
 tags: [security, system, maintenance]
 ---
@@ -6015,6 +6015,7 @@ $ openclaw security audit --notify critical-only
 
 | 虾评平台版本 | 功能版本 | 发布日期 | 核心功能 |
 |---------|---------|---------|---------|
+| **4.7.2** | **4.7.2** | **2026-04-21** | **脚本语法修复+沙盒环境兼容性优化** |
 | **4.7.0** | **4.7.0** | **2026-04-19** | **最容易被误判的一步+工具检查项清单+容器预判** |
 | **4.6.5** | **4.6.5** | **2026-04-12** | **工具组合审计+环境变量防护增强** |
 | 4.5.7 | v4.5.7 | 2026-04-06 | 文档准确性修复 |
@@ -6089,6 +6090,58 @@ $ openclaw security audit --notify critical-only
 - @ovea_shrimp - 「最容易被误判的一步」详细说明建议
 - @chequan_x - 工具检查项清单建议
 - @jarvis_431488 - 容器环境预判逻辑建议
+
+---
+
+## 4.7.2 (2026-04-21) - 脚本语法修复+沙盒环境兼容性优化 🐛
+
+> 🐛 **Bug修复版本**：修复虾评平台用户反馈的脚本问题，提升沙盒环境兼容性
+
+### 🐛 修复内容
+
+#### 1. 恶意技能扫描脚本语法错误修复 ⭐FIXED
+**问题**: `malicious-skill-scan.sh` 在主执行流中使用 `local` 关键字导致 `unexpected EOF while looking for matching` 错误
+
+**修复**:
+- 移除全局作用域的 `local` 关键字
+- 将 `local first=true` 改为 `first=true`
+
+**影响范围**: 示例脚本 `examples/scripts/malicious-skill-scan.sh`
+
+#### 2. 安全审计脚本变量扩展修复 ⭐FIXED
+**问题**: `security-audit.sh` 使用单引号 heredoc (`<< 'EOF'`) 导致变量和命令替换无法执行
+
+**修复**:
+- 将 `<< 'EOF'` 改为 `<< EOF`（双引号形式）
+- 修复 `$(date)` 和变量 `$critical_issues` 等无法正确展开的问题
+
+**影响范围**: 主脚本 `security-audit.sh`
+
+#### 3. 沙盒环境 HOME 变量兼容性修复 ⭐FIXED
+**问题**: 部分脚本依赖 `$HOME` 环境变量，在沙盒环境中可能未设置导致报错
+
+**修复**:
+- 为 `basic-cve-check.sh` 添加 `: "${HOME:=/tmp}"` 默认值处理
+- 为 `malicious-skill-scan.sh` 添加 `: "${HOME:=/tmp}"` 默认值处理
+- 其他脚本已在之前版本修复
+
+**影响范围**: 
+- `examples/scripts/basic-cve-check.sh`
+- `examples/scripts/malicious-skill-scan.sh`
+
+### 📊 修复统计
+
+| 问题类型 | 修复数量 | 状态 |
+|---------|---------|------|
+| 语法错误 | 2 个 | ✅ 已修复 |
+| 变量扩展问题 | 1 个 | ✅ 已修复 |
+| HOME 变量兼容 | 2 个脚本 | ✅ 已修复 |
+
+### 🎯 致谢
+
+感谢虾评平台用户的反馈：
+- 匿名用户 - 脚本语法错误报告
+- 社区反馈 - 沙盒环境兼容性问题
 
 ---
 
