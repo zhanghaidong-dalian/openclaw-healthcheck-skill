@@ -1,8 +1,47 @@
 ---
 name: healthcheck
 description: Host security hardening and risk-tolerance configuration for OpenClaw deployments. Use when a user asks for security audits, firewall/SSH/update hardening, risk posture, exposure review, OpenClaw cron scheduling for periodic checks, or version status checks on a machine running OpenClaw (laptop, workstation, Pi, VPS).
-version: 4.7.5
-updated: 2026-04-22
+version: 4.8.0
+updated: 2026-04-23
+---
+
+## Quick Intake Form (快速问诊表单) - v4.8.0 新增
+
+如果用户没有提供足够的上下文，使用以下 5 问表单快速收集信息：
+
+**请依次回答以下 5 个问题（回复数字即可）：**
+
+**Q1: 你使用的是什么设备/系统？**
+1. Mac (macOS)
+2. Windows PC
+3. Linux 服务器/VPS
+4. 树莓派 (Raspberry Pi)
+5. Docker 容器
+6. 其他
+
+**Q2: 你在哪里使用这台设备？**
+1. 本地个人电脑（只有我能接触到）
+2. 家里/办公室网络（家人/同事可能访问）
+3. 公网可访问的服务器（任何人可能尝试连接）
+
+**Q3: 你如何连接这台设备？**
+1. 直接坐在电脑前操作
+2. SSH 远程连接
+3. 内网穿透/FRP/Tailscale 等工具访问
+4. 多种方式都在用
+
+**Q4: 这台设备上运行了什么服务？**
+1. 只有 OpenClaw Gateway
+2. OpenClaw + 网站/博客
+3. OpenClaw + 数据库/文件存储
+4. OpenClaw + 多个服务
+
+**Q5: 你希望多久检查一次安全？**
+1. 只需要一次性检查
+2. 每周检查一次
+3. 每天检查一次
+4. 我不确定，你来推荐
+
 ---
 
 # OpenClaw Host Hardening
@@ -10,6 +49,154 @@ updated: 2026-04-22
 ## Overview
 
 Assess and harden the host running OpenClaw, then align it to a user-defined risk tolerance without breaking access. Use OpenClaw security tooling as a first-class signal, but treat OS hardening as a separate, explicit set of steps.
+
+## Scene Templates (场景模板) - v4.8.0 新增
+
+根据不同使用场景，预设不同的安全配置优先级：
+
+### 场景 1: 个人工作站 (Personal Workstation)
+**适用**: 本地 Mac/Windows PC，只有你能接触到
+
+**安全优先级**:
+- 🟢 基础: OpenClaw 文件权限、日志安全
+- 🟢 基础: 磁盘加密检查 (FileVault/BitLocker)
+- 🟡 标准: 防火墙启用（允许指定应用）
+- 🟡 标准: 自动化备份验证
+- 🔴 可选: 浏览器 2FA 推荐
+
+**预设检查项**:
+```bash
+# 必检
+openclaw security audit
+openclaw status
+
+# 可选
+diskutil apfs list # macOS 磁盘加密状态
+```
+
+**加固命令示例**:
+```bash
+# macOS 启用 FileVault
+sudo fdesetup enable
+
+# Windows 启用 BitLocker
+manage-bde -on C:
+```
+
+---
+
+### 场景 2: VPS/云服务器 (VPS/Cloud Server)
+**适用**: 公网可访问的 Linux 服务器，运行网站或 API
+
+**安全优先级**:
+- 🟢 基础: SSH 密钥登录 + 禁止密码
+- 🟢 基础: 防火墙只开放必要端口
+- 🟡 标准: 自动化安全更新
+- 🟡 标准: fail2ban 防暴力破解
+- 🔴 高危: 禁止 root 登录
+- 🔴 高危: 定期漏洞扫描
+
+**预设检查项**:
+```bash
+# 必检
+openclaw security audit --deep
+ss -ltnp  # 监听端口检查
+ufw status  # 防火墙状态
+cat /etc/ssh/sshd_config | grep -E "PermitRootLogin|PasswordAuthentication"
+```
+
+**加固命令示例**:
+```bash
+# SSH 密钥登录
+ssh-copy-id user@server
+
+# 禁用密码登录
+sudo sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+sudo systemctl restart sshd
+
+# UFW 防火墙
+sudo ufw default deny incoming
+sudo ufw allow 22/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw enable
+
+# fail2ban
+sudo apt install fail2ban
+sudo systemctl enable fail2ban
+```
+
+---
+
+### 场景 3: 树莓派/物联网设备 (Raspberry Pi/IoT)
+**适用**: 家庭网络中的小型设备，运行 Home Assistant 等
+
+**安全优先级**:
+- 🟢 基础: 修改默认 SSH 端口
+- 🟢 基础: 强密码策略
+- 🟡 标准: 网络隔离 (VLAN/子网)
+- 🟡 标准: 定期更新 Raspbian/Debian
+- 🔴 高危: 禁用 X11 转发（如果不用）
+
+**预设检查项**:
+```bash
+# 必检
+openclaw security audit
+cat /etc/ssh/sshd_config | grep Port  # SSH 端口
+passwd -S  # 用户密码状态
+```
+
+**加固命令示例**:
+```bash
+# 修改 SSH 端口
+sudo sed -i 's/#Port 22/Port 2222/' /etc/ssh/sshd_config
+sudo systemctl restart sshd
+
+# 强密码策略
+sudo apt install libpam-pwquality
+sudo vi /etc/security/pwquality.conf
+# minlen = 12, dcredit = -1, ucredit = -1, lcredit = -1, ocredit = -1
+
+# 自动更新
+sudo apt install unattended-upgrades
+sudo dpkg-reconfigure unattended-upgrades
+```
+
+---
+
+### 场景 4: Docker 容器环境
+**适用**: 在 Docker 中运行 OpenClaw
+
+**安全优先级**:
+- 🟢 基础: 非 root 用户运行容器
+- 🟢 基础: 限制容器 capabilities
+- 🟡 标准: 资源限制 (CPU/内存)
+- 🟡 标准: 只读根文件系统
+- 🔴 高危: 禁止 privileged 模式
+
+**预设检查项**:
+```bash
+# 必检
+docker ps | grep openclaw
+docker inspect <container_id> | grep -E 'User|Privileged|CapAdd'
+```
+
+**加固命令示例**:
+```bash
+# 安全运行 OpenClaw
+docker run -d \
+  --name openclaw \
+  --user 1000:1000 \
+  --read-only \
+  --memory="512m" \
+  --cpus="1" \
+  --cap-drop ALL \
+  -v /path/to/config:/app/config \
+  openclaw/openclaw:latest
+```
+
+---
+
 
 ## Core rules
 
@@ -156,25 +343,44 @@ Always show the plan before any changes.
 Offer one of these choices (numbered so users can reply with a single digit):
 
 1. Full manual execution (guided, step-by-step approvals)
-2. **Auto-fix safe items only** (new - fixes all auto-safe category items automatically)
-3. **Semi-automatic fix** (new - auto-risk items require confirmation but execute automatically)
-4. Show plan only
-5. Fix only critical issues
-6. Export commands for later
+2. **Auto-fix safe items only** (fixes all auto-safe category items automatically)
+3. **Semi-automatic fix** (auto-risk items require confirmation but execute automatically)
+4. **Quick scene template** (apply preset security profile based on your scenario)
+5. Show plan only
+6. Fix only critical issues
+7. Export commands for later
 
 #### 6.1) Auto-fix safe items (option 2)
 
 When user selects option 2:
 1. Display all auto-safe items to be fixed
 2. Create backup of all files to be modified
-3. Run auto-safe scripts in sequence:
-   ```bash
-   # Example auto-safe scripts
-   scripts/auto-safe/fix-openclaw-perms.sh
-   scripts/auto-safe/fix-logging-perms.sh
-   ```
+3. Run auto-safe scripts in sequence
 4. Verify each fix succeeded
 5. Report results with rollback instructions
+
+**Enhanced auto-fix capabilities (v4.8.0)**:
+
+| Script | What it fixes | Risk Level |
+|--------|--------------|------------|
+| `fix-openclaw-perms.sh` | File/directory permissions | 🟢 Safe |
+| `fix-logging-perms.sh` | Log file permissions | 🟢 Safe |
+| `fix-firewall-defaults.sh` | Basic firewall rules | 🟡 Medium |
+| `fix-ssh-hardening.sh` | SSH security settings | 🟡 Medium |
+| `fix-auto-updates.sh` | Enable automatic updates | 🟡 Medium |
+
+#### 6.2) Quick scene template (option 4)
+
+When user selects option 4:
+1. Ask which scene template applies (or use quick intake form)
+2. Apply preset security profile based on scene:
+   - Personal Workstation: FileVault/BitLocker check, backup status
+   - VPS/Cloud: SSH hardening, firewall, fail2ban
+   - Raspberry Pi: SSH port change, password policy
+   - Docker: Container security settings
+3. Offer to customize any specific items
+
+**Scene template workflow**:
 
 Auto-safe scripts characteristics:
 - Always create backup before modification
