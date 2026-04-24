@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.4.8",
-    "lastTouchedAt": "2026-04-22T09:28:34.637Z"
+    "lastTouchedVersion": "2026.4.22",
+    "lastTouchedAt": "2026-04-24T07:13:23.949Z"
   },
   "wizard": {
     "lastRunAt": "2026-04-06T02:35:36.617Z",
@@ -377,7 +377,9 @@
       "openclaw-lark",
       "coze-openclaw-plugin",
       "openclaw-weixin",
-      "wecom-openclaw-plugin"
+      "wecom-openclaw-plugin",
+      "feishu",
+      "memory-core"
     ],
     "entries": {
       "coze-openclaw-plugin": {
