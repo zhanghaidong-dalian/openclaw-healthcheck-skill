@@ -3,7 +3,7 @@ name: healthcheck
 description: OpenClaw 主机安全加固与风险评估工具。适用于安全审计、防火墙/SSH加固、更新管理、风险暴露检查、定时监控等场景。支持 VPS、云服务器、本地工作站、Docker 容器、沙盒环境等多种部署形态。
 keywords: [security, audit, hardening, firewall, ssh, update, cron, 安全, 审计, 加固, 防火墙]
 author: OpenClaw Community
-version: 4.7.4
+version: 4.8.1
 language: zh-CN, en
 tags: [security, system, maintenance]
 ---
@@ -1566,7 +1566,27 @@ openclaw cron add \
 ./scripts/one-click-hardening.sh    # 交互式
 ./scripts/one-click-hardening.sh -y # 自动确认
 
-# 3. 记忆文件审计 - 检查敏感数据
+# 3. 增强版自动修复脚本 - v4.9.0 新增 ⭐
+./scripts/auto-fixer-v2.sh --risk-level safe      # 仅修复明确安全项
+./scripts/auto-fixer-v2.sh --risk-level standard  # 修复低风险项
+./scripts/auto-fixer-v2.sh --risk-level high      # 修复中风险项（需确认）
+./scripts/auto-fixer-v2.sh --rollback --backup=TIMESTAMP  # 回滚操作
+
+# 4. 极简模式 - v4.9.0 新增 ⭐
+./scripts/quick-detect.sh           # 自动探测环境
+./scripts/quick-detect.sh --quick   # 快速检查
+./scripts/quick-detect.sh --full    # 完整检查
+
+# 5. 中文向导 - v4.9.0 新增 ⭐
+./scripts/wizard.sh                 # 启动中文对话向导
+
+# 6. 定时巡检管理 - v4.9.0 新增 ⭐
+./scripts/cron-manager.sh --cron "0 2 * * *"    # 设置每日巡检
+./scripts/cron-manager.sh --cron list           # 查看已配置的定时任务
+./scripts/cron-manager.sh --cron remove        # 删除定时任务
+./scripts/cron-manager.sh --cron "0 2 * * *" --notify  # 发送巡检结果到飞书
+
+# 7. 记忆文件审计 - 检查敏感数据
 gin
 ./scripts/memory-auditor.sh          # 默认检查
 ./scripts/memory-auditor.sh --fix   # 自动修复权限
