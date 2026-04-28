@@ -1,0 +1,26 @@
+---
+# 内核安全参数检查
+id: kernel-001
+name: 内核安全参数检查
+category: kernel_hardening
+severity: low
+description: 检查内核安全参数配置
+
+check:
+  type: command
+  command: sysctl kernel.randomize_va_space | grep 2 && echo "secure"
+
+expected: secure
+
+remediation:
+  script: N/A
+  command: echo "sysctl -w kernel.randomize_va_space=2"
+  restart_required: false
+
+risk_assessment:
+  if_violated: 内核地址随机化未启用，可能被攻击利用
+  if_fixed: 内核地址随机化已启用
+
+metadata:
+  compliance: ["CIS_Benchmark"]
+  tags: ["kernel", "security", "hardening"]

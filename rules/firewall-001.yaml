@@ -1,0 +1,28 @@
+---
+# 防火墙启用状态检查
+id: firewall-001
+name: 防火墙启用状态检查
+category: firewall_hardening
+severity: high
+description: 检查防火墙是否启用
+
+check:
+  type: command
+  command: 'command -v ufw >/dev/null 2>&1 && ufw status | grep "Status: active"'
+
+expected: 'active'
+
+remediation:
+  script: fix-firewall-defaults.sh
+  command: 'ufw enable'
+  restart_required: false
+  service: ufw
+
+risk_assessment:
+  if_violated: "防火墙未启用，系统暴露在公网"
+  if_fixed: "防火墙保护已启用"
+
+metadata:
+  cve_references: []
+  compliance: ['CIS_Benchmark']
+  tags: ['firewall', 'network', 'security']

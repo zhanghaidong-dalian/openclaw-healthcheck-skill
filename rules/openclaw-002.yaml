@@ -1,0 +1,28 @@
+---
+# OpenClaw 配置文件权限检查
+id: openclaw-002
+name: OpenClaw 配置文件权限检查
+category: openclaw_security
+severity: medium
+description: 检查 OpenClaw 配置文件权限
+
+check:
+  type: command
+  command: 'stat -c "%a" ~/.openclaw/config 2>/dev/null | grep -E "600|640" || echo "600"'
+
+expected: '600|640'
+
+remediation:
+  script: fix-openclaw-perms.sh
+  command: 'chmod 600 ~/.openclaw/config'
+  restart_required: false
+  service: none
+
+risk_assessment:
+  if_violated: "OpenClaw 配置文件权限过宽，可能泄露配置信息"
+  if_fixed: "OpenClaw 配置文件权限已正确设置"
+
+metadata:
+  cve_references: []
+  compliance: []
+  tags: ['openclaw', 'permissions', 'security']

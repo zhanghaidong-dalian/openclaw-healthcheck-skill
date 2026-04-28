@@ -1,0 +1,45 @@
+---
+# healthcheck-skill 白名单配置
+
+whitelist:
+  # 信任域名（用于网络访问）
+  domains:
+    - "github.com"
+    - "api.github.com"
+    - "update.ubuntu.com"
+    - "archive.ubuntu.com"
+    - "security.ubuntu.com"
+    - "xiaping.coze.site"
+  reason: "系统更新、规则获取和平台访问"
+
+  # 信任路径（用于文件访问）
+  paths:
+    - "/etc/ssh/sshd_config"
+    - "/etc/ufw/"
+    - "/etc/fail2ban/"
+    - "/var/log/openclaw/"
+    - "~/.openclaw/"
+  reason: "配置文件和日志目录"
+
+  # 信任服务（用于服务重启）
+  services:
+    - name: "sshd"
+      restart_required: true
+    - name: "ufw"
+      restart_required: true
+    - name: "fail2ban"
+      restart_required: true
+    - name: "cron"
+      restart_required: false
+
+# 白名单规则
+rules:
+  domain_access:
+    allow_whitelisted: true
+    block_non_whitelisted: false
+  path_access:
+    allow_whitelisted: true
+    block_non_whitelisted: false
+  service_operations:
+    allow_whitelisted: true
+    require_confirmation: true

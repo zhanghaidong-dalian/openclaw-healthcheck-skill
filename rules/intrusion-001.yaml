@@ -1,0 +1,26 @@
+---
+# 入侵检测检查
+id: intrusion-001
+name: 入侵检测检查
+category: intrusion_detection
+severity: low
+description: 检查是否启用了入侵检测系统
+
+check:
+  type: command
+  command: command -v ossec-hids >/dev/null 2>&1 && systemctl is-active ossec-hds && echo "ids_active" || echo "no_ids"
+
+expected: ids_active
+
+remediation:
+  script: N/A
+  command: echo "入侵检测系统需要手动安装"
+  restart_required: false
+
+risk_assessment:
+  if_violated: 未启用入侵检测，无法及时发现入侵
+  if_fixed: 入侵检测系统已启用
+
+metadata:
+  compliance: []
+  tags: ["intrusion", "detection", "security"]

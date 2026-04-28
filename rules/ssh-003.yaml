@@ -1,0 +1,28 @@
+---
+# SSH 配置文件权限检查
+id: ssh-003
+name: SSH 配置文件权限检查
+category: ssh_hardening
+severity: medium
+description: 检查 SSH 配置文件权限是否正确
+
+check:
+  type: command
+  command: 'stat -c "%a" /etc/ssh/sshd_config | grep "600"'
+
+expected: '600'
+
+remediation:
+  script: fix-ssh-hardening.sh
+  command: 'chmod 600 /etc/ssh/sshd_config'
+  restart_required: true
+  service: sshd
+
+risk_assessment:
+  if_violated: "SSH 配置文件权限过宽，可能被其他用户读取"
+  if_fixed: "SSH 配置文件权限已正确设置"
+
+metadata:
+  cve_references: []
+  compliance: ['CIS_Benchmark']
+  tags: ['ssh', 'permissions', 'security']

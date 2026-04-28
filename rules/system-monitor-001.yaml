@@ -1,0 +1,27 @@
+---
+# 系统资源监控检查
+id: system-monitor-001
+name: 系统资源监控检查
+category: system_monitoring
+severity: low
+description: 检查是否启用了系统资源监控
+
+check:
+  type: command
+  type: command
+  command: command -v atop htop >/dev/null 2>&1 || echo "no_monitoring"
+
+expected: has_monitoring
+
+remediation:
+  script: N/A
+  command: echo "资源监控工具需要手动安装"
+  restart_required: false
+
+risk_assessment:
+  if_violated: 未启用资源监控，无法及时发现异常
+  if_fixed: 资源监控已启用
+
+metadata:
+  compliance: []
+  tags: ["monitoring", "audit", "security"]

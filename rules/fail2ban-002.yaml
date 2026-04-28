@@ -1,0 +1,28 @@
+---
+# fail2ban 运行状态检查
+id: fail2ban-002
+name: fail2ban 运行状态检查
+category: fail2ban_security
+severity: medium
+description: 检查 fail2ban 服务是否正在运行
+
+check:
+  type: command
+  command: 'systemctl is-active fail2ban'
+
+expected: 'active'
+
+remediation:
+  script: fail2ban-integrate.sh
+  command: 'systemctl start fail2ban && systemctl enable fail2ban'
+  restart_required: false
+  service: fail2ban
+
+risk_assessment:
+  if_violated: "fail2ban 服务未运行，无法防止暴力破解攻击"
+  if_fixed: "fail2ban 服务已启动并启用"
+
+metadata:
+  cve_references: []
+  compliance: ['CIS_Benchmark']
+  tags: ['fail2ban', 'intrusion', 'security']

@@ -1,0 +1,26 @@
+---
+# 磁盘加密状态检查
+id: disk-001
+name: 磁盘加密状态检查
+category: disk_security
+severity: medium
+description: 检查系统磁盘是否已加密
+
+check:
+  type: command
+  command: command -v cryptsetup && lsblk -f -o FSTYPE | grep -q crypto_LUKS && echo encrypted || echo not_encrypted
+
+expected: encrypted
+
+remediation:
+  script: null
+  command: echo "磁盘加密需要手动配置"
+  restart_required: false
+
+risk_assessment:
+  if_violated: 磁盘未加密，数据在物理层面不安全
+  if_fixed: 磁盘已加密，数据在物理层面受到保护
+
+metadata:
+  compliance: ["CIS_Benchmark"]
+  tags: ["disk", "encryption", "security"]
