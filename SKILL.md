@@ -1,5 +1,6 @@
 ---
 name: healthcheck
+version: 4.8.3
 ---
 
 ## Quick Intake Form (快速问诊表单) - v4.8.0 新增
