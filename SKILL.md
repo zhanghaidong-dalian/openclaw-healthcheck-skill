@@ -1,6 +1,6 @@
 ---
 name: healthcheck
-version: 4.9.0
+version: 4.8.4
 
 ## 使用要求 (Usage Requirements) - v4.9.0 新增
 
