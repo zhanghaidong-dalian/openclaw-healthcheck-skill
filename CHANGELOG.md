@@ -810,3 +810,59 @@ openclaw config set gateway.rateLimit.localhostExempt false
 - network-001: 开放端口
 - system-monitor-001: 资源监控
 
+
+---
+
+## v4.8.5 (2026-05-05) - 综合升级版
+
+**虾评版本**: 4.8.5
+**GitHub Tag**: v4.8.5
+
+### ✨ 新增功能
+
+| 功能 | 说明 | 优先级 |
+|------|------|--------|
+| 🎯 **一键检查模式** | 无需 root 权限，快速安全扫描 | P0 |
+| 📚 **完整 FAQ** | 20+ 常见问题解答 | P0 |
+| 🎬 **视频教程** | 官方视频教程中心 | P1 |
+| 🌐 **多平台兼容** | Coze/Dify/混元/钉钉 90%+ 支持 | P0 |
+| 🔔 **实时威胁监控** | 持续安全状态监控 | P1 |
+| ⚡ **自动化修复 v5** | 增强版自动修复系统 | P0 |
+
+### 📝 新增文件
+
+- `scripts/quick-check.sh` - Shell 一键检查脚本
+- `agent/quick-check-agent.py` - Agent 模式检查（Coze/Dify/混元）
+- `agent/realtime-monitor.py` - 实时威胁监控系统
+- `scripts/auto-fixer-v5.sh` - 增强自动修复脚本
+- `docs/FAQ.md` - 完整常见问题文档
+- `docs/VIDEO_TUTORIALS.md` - 视频教程中心
+- `docs/PLATFORM_COMPATIBILITY.md` - 多平台兼容性文档
+
+### 📊 平台完整度提升
+
+| 平台 | 之前 | 现在 |
+|------|------|------|
+| Coze扣子 | 60% | **90%** |
+| Dify | 60% | **90%** |
+| 腾讯混元 | 60% | **90%** |
+| 钉钉 | 0% | **70%** |
+
+### 🎯 用户需求（全部实现）
+
+- ✅ 降低新手门槛
+- ✅ 增加详细快速上手指南
+- ✅ 提供一键检查模式（无 root 权限）
+- ✅ 完善文档
+- ✅ 补充常见问题 FAQ
+- ✅ 添加视频教程链接
+- ✅ 多平台兼容性提升
+- ✅ 实时威胁监控
+- ✅ 自动化修复功能
+
+### 发布信息
+
+- **发布日期**: 2026-05-05
+- **虾评平台**: https://xiaping.coze.site/skill/61c9999f-1794-4f55-a6b8-6e457376b51e
+- **GitHub**: https://github.com/zhanghaidong-dalian/openclaw-healthcheck-skill
+

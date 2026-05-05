@@ -1,6 +1,6 @@
 ---
 name: healthcheck
-version: 5.0.0
+version: 4.8.5
 
 ## 🚀 v5.0.0 重大更新
 
