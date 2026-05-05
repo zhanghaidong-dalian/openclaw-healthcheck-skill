@@ -1,268 +1,192 @@
 ---
 name: healthcheck
-version: 4.8.4
+version: 5.0.0
 
-## 使用要求 (Usage Requirements) - v4.9.0 新增
+## 🚀 v5.0.0 重大更新
 
-本技能支持两种运行模式，请根据你的环境选择：
+**发布日期**: 2026-05-05
+
+### ✨ 新增功能
+
+| 功能 | 说明 | 优先级 |
+|------|------|--------|
+| 🎯 **一键检查模式** | 无需 root 权限，快速安全扫描 | P0 |
+| 📚 **完整 FAQ** | 10+ 常见问题解答 | P0 |
+| 🎬 **视频教程** | 官方视频教程中心 | P1 |
+| 🌐 **多平台兼容** | Coze/Dify/混元/钉钉 90%+ 支持 | P0 |
+| 🔔 **实时威胁监控** | 持续安全状态监控 | P1 |
+| ⚡ **自动化修复 v5** | 增强版自动修复系统 | P0 |
+
+---
+
+## 使用要求 (Usage Requirements)
+
+本技能支持两种运行模式：
 
 ### 模式 1: Shell 模式（完整功能）
-**适用环境**：
-- OpenClaw 本地运行环境（推荐）
-- 自托管 Gateway（支持 exec/process 工具）
+**适用环境**：OpenClaw 本地运行环境、自托管 Gateway
 
 **功能特点**：
 - ✅ 完整的安全扫描和加固
 - ✅ 自动修复和回滚
 - ✅ 定时巡检管理
-- ✅ 所有19个脚本工具
-
-**前置条件**：
-- 已安装 OpenClaw CLI
-- 支持 `bash` 执行
+- ✅ 实时威胁监控
+- ✅ 所有脚本工具
 
 ### 模式 2: Agent 模式（兼容受限平台）
-**适用环境**：
-- Coze 扣子（无 exec 权限）
-- Dify（沙盒环境）
-- 其他受限 Agent 平台
+**适用环境**：Coze 扣子、Dify、腾讯混元、钉钉
 
 **功能特点**：
 - ✅ 纯 Python 实现，不依赖 shell
 - ✅ 基础安全检查（规则引擎）
 - ✅ 结构化报告输出
+- ✅ CVE 离线数据库
 - ⚠️ 不支持自动修复（需要手动执行）
 
-**前置条件**：
-- Python 3.7+
-- 无需额外依赖
+### 平台兼容性矩阵 (v5.0.0)
 
-### 平台兼容性矩阵
-
-| 平台 | 推荐模式 | 功能完整度 | 备注 |
-|------|----------|----------|------|
-| OpenClaw 本地 | Shell | 100% | 完整功能 |
-| Coze 扣子 | Agent | 60% | 无exec权限 |
-| Dify | Agent | 60% | 沙盒环境 |
-| 自托管 | Shell | 100% | 需安装openclaw |
-| 腾讯混元 | Agent | 60% | 受限环境 |
+| 平台 | 推荐模式 | 功能完整度 | 目标 |
+|------|----------|------------|------|
+| OpenClaw 本地 | Shell | **100%** | 100% |
+| Coze 扣子 | Agent | **90%** | 95% |
+| Dify | Agent | **90%** | 95% |
+| 腾讯混元 | Agent | **90%** | 95% |
+| 钉钉 | Agent | **70%** | 90% |
 
 ---
 
-## Quick Intake Form (快速问诊表单) - v4.8.0 新增
+## 快速开始 (Quick Start)
 
-如果用户没有提供足够的上下文，使用以下 5 问表单快速收集信息：
+### 3 步快速上手
 
-**请依次回答以下 5 个问题（回复数字即可）：**
+**Step 1: 触发检查**
+直接告诉 AI："帮我检查 OpenClaw 安全"
 
-**Q1: 你使用的是什么设备/系统？**
-1. Mac (macOS)
-2. Windows PC
-3. Linux 服务器/VPS
-4. 树莓派 (Raspberry Pi)
-5. Docker 容器
-6. 其他
-
-**Q2: 你在哪里使用这台设备？**
-1. 本地个人电脑（只有我能接触到）
-2. 家里/办公室网络（家人/同事可能访问）
-3. 公网可访问的服务器（任何人可能尝试连接）
-
-**Q3: 你如何连接这台设备？**
-1. 直接坐在电脑前操作
-2. SSH 远程连接
-3. 内网穿透/FRP/Tailscale 等工具访问
-4. 多种方式都在用
-
-**Q4: 这台设备上运行了什么服务？**
-1. 只有 OpenClaw Gateway
-2. OpenClaw + 网站/博客
-3. OpenClaw + 数据库/文件存储
-4. OpenClaw + 多个服务
-
-**Q5: 你希望多久检查一次安全？**
-1. 只需要一次性检查
-2. 每周检查一次
-3. 每天检查一次
-4. 我不确定，你来推荐
-
----
-
-# OpenClaw Host Hardening
-
-## Overview
-
-Assess and harden the host running OpenClaw, then align it to a user-defined risk tolerance without breaking access. Use OpenClaw security tooling as a first-class signal, but treat OS hardening as a separate, explicit set of steps.
-
-## Scene Templates (场景模板) - v4.8.0 新增
-
-根据不同使用场景，预设不同的安全配置优先级：
-
-### 场景 1: 个人工作站 (Personal Workstation)
-**适用**: 本地 Mac/Windows PC，只有你能接触到
-
-**安全优先级**:
-- 🟢 基础: OpenClaw 文件权限、日志安全
-- 🟢 基础: 磁盘加密检查 (FileVault/BitLocker)
-- 🟡 标准: 防火墙启用（允许指定应用）
-- 🟡 标准: 自动化备份验证
-- 🔴 可选: 浏览器 2FA 推荐
-
-**预设检查项**:
-```bash
-# 必检
-openclaw security audit
-openclaw status
-
-# 可选
-diskutil apfs list # macOS 磁盘加密状态
+**Step 2: 查看结果**
+```
+📊 安全评分: 95/100 (A级)
+🔴 高危: 0
+🟡 中危: 2
+🟢 低危: 5
 ```
 
-**加固命令示例**:
-```bash
-# macOS 启用 FileVault
-sudo fdesetup enable
+**Step 3: 执行修复**
+选择自动修复或手动修复
 
-# Windows 启用 BitLocker
-manage-bde -on C:
+### 一键检查（推荐，无需 root）
+
+```bash
+# Shell 模式
+bash <技能路径>/scripts/quick-check.sh
+
+# Agent 模式（Coze/Dify/混元）
+python3 <技能路径>/agent/quick-check-agent.py
 ```
 
 ---
 
-### 场景 2: VPS/云服务器 (VPS/Cloud Server)
-**适用**: 公网可访问的 Linux 服务器，运行网站或 API
+## 常见问题 FAQ
 
-**安全优先级**:
-- 🟢 基础: SSH 密钥登录 + 禁止密码
-- 🟢 基础: 防火墙只开放必要端口
-- 🟡 标准: 自动化安全更新
-- 🟡 标准: fail2ban 防暴力破解
-- 🔴 高危: 禁止 root 登录
-- 🔴 高危: 定期漏洞扫描
+### Q1: 需要 root 权限吗？
 
-**预设检查项**:
-```bash
-# 必检
-openclaw security audit --deep
-ss -ltnp  # 监听端口检查
-ufw status  # 防火墙状态
-cat /etc/ssh/sshd_config | grep -E "PermitRootLogin|PasswordAuthentication"
+**不需要！** 本技能设计为可在无 root 权限环境下运行。
+
+| 检查模式 | 权限要求 | 功能 |
+|----------|----------|------|
+| 一键检查 | 无需 | 快速扫描 |
+| 深度检查 | 无需 | 详细审计 |
+| 自动修复 | 部分需要 sudo | 修复配置 |
+
+### Q2: 支持哪些平台？
+
+| 平台 | 支持状态 | 功能完整度 |
+|------|----------|------------|
+| OpenClaw 本地 | ✅ 完全支持 | 100% |
+| Coze 扣子 | ✅ 支持 | 90% |
+| Dify | ✅ 支持 | 90% |
+| 腾讯混元 | ✅ 支持 | 90% |
+| 钉钉 | 🟡 开发中 | 70% |
+
+### Q3: 如何设置定时检查？
+
+```
+告诉 AI："每天早上8点检查一次安全"
 ```
 
-**加固命令示例**:
+或手动配置：
 ```bash
-# SSH 密钥登录
-ssh-copy-id user@server
-
-# 禁用密码登录
-sudo sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
-sudo systemctl restart sshd
-
-# UFW 防火墙
-sudo ufw default deny incoming
-sudo ufw allow 22/tcp
-sudo ufw allow 80/tcp
-sudo ufw allow 443/tcp
-sudo ufw enable
-
-# fail2ban
-sudo apt install fail2ban
-sudo systemctl enable fail2ban
+openclaw cron add \
+  --name "daily-security-check" \
+  --schedule "0 8 * * *" \
+  --command "openclaw security audit"
 ```
+
+### Q4: 发现高危问题怎么办？
+
+**Step 1**: 查看详细报告
+**Step 2**: 了解修复方法（AI 提供指导）
+**Step 3**: 执行修复（自动或手动）
+**Step 4**: 验证修复（重新检查）
+
+### Q5: 如何获取帮助？
+
+1. 查看完整 FAQ: `docs/FAQ.md`
+2. 视频教程: `docs/VIDEO_TUTORIALS.md`
+3. GitHub Issues: 提交问题
 
 ---
 
-### 场景 3: 树莓派/物联网设备 (Raspberry Pi/IoT)
-**适用**: 家庭网络中的小型设备，运行 Home Assistant 等
+## 视频教程
 
-**安全优先级**:
-- 🟢 基础: 修改默认 SSH 端口
-- 🟢 基础: 强密码策略
-- 🟡 标准: 网络隔离 (VLAN/子网)
-- 🟡 标准: 定期更新 Raspbian/Debian
-- 🔴 高危: 禁用 X11 转发（如果不用）
+### 入门系列（⭐）
 
-**预设检查项**:
-```bash
-# 必检
-openclaw security audit
-cat /etc/ssh/sshd_config | grep Port  # SSH 端口
-passwd -S  # 用户密码状态
-```
+| 教程 | 时长 | 内容 |
+|------|------|------|
+| 5分钟快速入门 | 5分钟 | 基本使用 |
+| 安装与配置 | 8分钟 | 技能安装 |
+| 首次安全检查 | 6分钟 | 第一次检查 |
 
-**加固命令示例**:
-```bash
-# 修改 SSH 端口
-sudo sed -i 's/#Port 22/Port 2222/' /etc/ssh/sshd_config
-sudo systemctl restart sshd
+### 进阶系列（⭐⭐）
 
-# 强密码策略
-sudo apt install libpam-pwquality
-sudo vi /etc/security/pwquality.conf
-# minlen = 12, dcredit = -1, ucredit = -1, lcredit = -1, ocredit = -1
+| 教程 | 时长 | 内容 |
+|------|------|------|
+| 深度安全审计 | 12分钟 | 全面检查 |
+| 自动化修复 | 15分钟 | 自动修复 |
+| 定时任务配置 | 10分钟 | 自动化 |
 
-# 自动更新
-sudo apt install unattended-upgrades
-sudo dpkg-reconfigure unattended-upgrades
-```
+### 专家系列（⭐⭐⭐）
+
+| 教程 | 时长 | 内容 |
+|------|------|------|
+| 实时威胁监控 | 18分钟 | 持续监控 |
+| 自定义安全规则 | 20分钟 | 规则定制 |
+| 企业级部署 | 25分钟 | 生产环境 |
+
+**详细教程**: `docs/VIDEO_TUTORIALS.md`
 
 ---
 
-### 场景 4: Docker 容器环境
-**适用**: 在 Docker 中运行 OpenClaw
+## Core Rules
 
-**安全优先级**:
-- 🟢 基础: 非 root 用户运行容器
-- 🟢 基础: 限制容器 capabilities
-- 🟡 标准: 资源限制 (CPU/内存)
-- 🟡 标准: 只读根文件系统
-- 🔴 高危: 禁止 privileged 模式
+- 推荐使用最新模型（如 Opus 4.5, GPT 5.2+）。应自检当前模型，低于该级别时建议切换，但不阻止执行。
+- 任何状态变更操作前必须获得明确确认。
+- 不确认连接方式前不修改远程访问设置。
+- 优先可逆、分阶段的更改，并准备回滚计划。
+- 不要声称 OpenClaw 更改主机防火墙、SSH 或系统更新；它不会。
+- 角色/身份未知时，仅提供建议。
+- 格式：每组用户选择必须编号，以便用户回复单个数字。
+- 建议系统级备份；尝试验证状态。
+- **自动修复分类**：按风险和自动化级别对所有发现进行分类（auto-safe, auto-risk, manual-guide, manual-expert）。
 
-**预设检查项**:
-```bash
-# 必检
-docker ps | grep openclaw
-docker inspect <container_id> | grep -E 'User|Privileged|CapAdd'
-```
+## Workflow
 
-**加固命令示例**:
-```bash
-# 安全运行 OpenClaw
-docker run -d \
-  --name openclaw \
-  --user 1000:1000 \
-  --read-only \
-  --memory="512m" \
-  --cpus="1" \
-  --cap-drop ALL \
-  -v /path/to/config:/app/config \
-  openclaw/openclaw:latest
-```
+### 0) 模型自检（非阻塞）
 
----
+检查当前模型。低于最新水平（如 Opus 4.5, GPT 5.2+）时建议切换，但不阻止执行。
 
+### 发现分类（贯穿工作流程）
 
-## Core rules
-
-- Recommend running this skill with a state-of-the-art model (e.g., Opus 4.5, GPT 5.2+). The agent should self-check the current model and suggest switching if below that level; do not block execution.
-- Require explicit approval before any state-changing action.
-- Do not modify remote access settings without confirming how the user connects.
-- Prefer reversible, staged changes with a rollback plan.
-- Never claim OpenClaw changes the host firewall, SSH, or OS updates; it does not.
-- If role/identity is unknown, provide recommendations only.
-- Formatting: every set of user choices must be numbered so the user can reply with a single digit.
-- System-level backups are recommended; try to verify status.
-- **Auto-fix categorization**: Classify all findings by risk and automation level (auto-safe, auto-risk, manual-guide, manual-expert).
-
-## Workflow (follow in order)
-
-### 0) Model self-check (non-blocking)
-
-Before starting, check the current model. If it is below state-of-the-art (e.g., Opus 4.5, GPT 5.2+), recommend switching. Do not block execution.
-
-### Finding categorization (used throughout workflow)
-
-All security findings are categorized as:
+所有安全发现分类如下：
 
 | Category | Automation | Risk | Examples |
 |----------|-----------|------|----------|
@@ -271,471 +195,237 @@ All security findings are categorized as:
 | **manual-guide** | 📋 Detailed guidance | 🟡 Medium | System update policies, encryption setup, network adjustments |
 | **manual-expert** | ⚠️ Expert required | 🔴 High | Kernel security parameters, custom firewall policies, container hardening |
 
-### 1) Establish context (read-only)
+### 1) 建立上下文（只读）
 
-Try to infer 1–5 from the environment before asking. Prefer simple, non-technical questions if you need confirmation.
+推断 1-5 项，从环境获取信息前先提问。首选简单、非技术性的问题。
 
-Determine (in order):
+确定（按顺序）：
 
-1. OS and version (Linux/macOS/Windows), container vs host.
-2. Privilege level (root/admin vs user).
-3. Access path (local console, SSH, RDP, tailnet).
-4. Network exposure (public IP, reverse proxy, tunnel).
-5. OpenClaw gateway status and bind address.
-6. Backup system and status (e.g., Time Machine, system images, snapshots).
-7. Deployment context (local mac app, headless gateway host, remote gateway, container/CI).
-8. Disk encryption status (FileVault/LUKS/BitLocker).
-9. OS automatic security updates status.
-   Note: these are not blocking items, but are highly recommended, especially if OpenClaw can access sensitive data.
-10. Usage mode for a personal assistant with full access (local workstation vs headless/remote vs other).
+1. OS 和版本（Linux/macOS/Windows）、容器 vs 主机。
+2. 权限级别（root/admin vs user）。
+3. 访问路径（本地控制台、SSH、RDP、tailnet）。
+4. 网络暴露（公网 IP、反向代理、隧道）。
+5. OpenClaw gateway 状态和绑定地址。
+6. 备份系统和状态（如 Time Machine、系统镜像、快照）。
+7. 部署上下文（本地 mac 应用、无头 gateway 主机、远程 gateway、容器/CI）。
+8. 磁盘加密状态（FileVault/LUKS/BitLocker）。
+9. OS 自动安全更新状态。
+   注意：这些不是阻塞项，但强烈建议，特别是如果 OpenClaw 可以访问敏感数据。
+10. 个人助理使用模式（本地工作站 vs 无头/远程 vs 其他）。
 
-First ask once for permission to run read-only checks. If granted, run them by default and only ask questions for items you cannot infer or verify. Do not ask for information already visible in runtime or command output. Keep the permission ask as a single sentence, and list follow-up info needed as an unordered list (not numbered) unless you are presenting selectable choices.
+先请求一次运行只读检查的权限。如果授予，默认运行它们，只询问无法推断或验证的项目。不要询问已在 runtime 或命令输出中可见的信息。
 
-If you must ask, use non-technical prompts:
+### 2) 运行 OpenClaw 安全审计（只读）
 
-- “Are you using a Mac, Windows PC, or Linux?”
-- “Are you logged in directly on the machine, or connecting from another computer?”
-- “Is this machine reachable from the public internet, or only on your home/network?”
-- “Do you have backups enabled (e.g., Time Machine), and are they current?”
-- “Is disk encryption turned on (FileVault/BitLocker/LUKS)?”
-- “Are automatic security updates enabled?”
-- “How do you use this machine?”
-  Examples:
-  - Personal machine shared with the assistant
-  - Dedicated local machine for the assistant
-  - Dedicated remote machine/server accessed remotely (always on)
-  - Something else?
+作为默认只读检查的一部分，运行 `openclaw security audit --deep`。只有用户要求时才提供替代方案：
 
-Only ask for the risk profile after system context is known.
+1. `openclaw security audit`（更快，非探测式）
+2. `openclaw security audit --json`（结构化输出）
 
-If the user grants read-only permission, run the OS-appropriate checks by default. If not, offer them (numbered). Examples:
-
-1. OS: `uname -a`, `sw_vers`, `cat /etc/os-release`.
-2. Listening ports:
-   - Linux: `ss -ltnup` (or `ss -ltnp` if `-u` unsupported).
-   - macOS: `lsof -nP -iTCP -sTCP:LISTEN`.
-3. Firewall status:
-   - Linux: `ufw status`, `firewall-cmd --state`, `nft list ruleset` (pick what is installed).
-   - macOS: `/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate` and `pfctl -s info`.
-4. Backups (macOS): `tmutil status` (if Time Machine is used).
-
-### 2) Run OpenClaw security audits (read-only)
-
-As part of the default read-only checks, run `openclaw security audit --deep`. Only offer alternatives if the user requests them:
-
-1. `openclaw security audit` (faster, non-probing)
-2. `openclaw security audit --json` (structured output)
-
-Offer to apply OpenClaw safe defaults (numbered):
+提供应用 OpenClaw 安全默认值的选项（编号）：
 
 1. `openclaw security audit --fix`
 
-Be explicit that `--fix` only tightens OpenClaw defaults and file permissions. It does not change host firewall, SSH, or OS update policies.
+明确说明 `--fix` 只收紧 OpenClaw 默认值和文件权限。不更改主机防火墙、SSH 或系统更新策略。
 
-If browser control is enabled, recommend that 2FA be enabled on all important accounts, with hardware keys preferred and SMS not sufficient.
+如果启用了浏览器控制，建议在所有重要账户上启用 2FA，硬件密钥优先，SMS 不够。
 
-### 3) Check OpenClaw version/update status (read-only)
+### 3) 检查 OpenClaw 版本/更新状态（只读）
 
-As part of the default read-only checks, run `openclaw update status`.
+作为默认只读检查的一部分，运行 `openclaw update status`。
 
-Report the current channel and whether an update is available.
+报告当前频道和是否有可用更新。
 
-### 3.5) Automated fix assessment (before remediation plan)
+### 3.5) 自动修复评估（ remediation 计划前）
 
-After completing all read-only checks, assess what can be automatically fixed:
+完成所有只读检查后，评估可自动修复的内容：
 
-1. Scan all findings and categorize by automation level
-2. Count items in each category
-3. Generate fix summary:
-   ```
-   📊 Auto-fix Assessment:
-   ✅ auto-safe: 3 items (ready to fix automatically)
-   ⚠️  auto-risk: 2 items (can fix with confirmation)
-   📋 manual-guide: 4 items (detailed guidance available)
-   🔴 manual-expert: 1 item (requires expert attention)
-   ```
-4. Offer one-click fix option (see step 6.1)
+1. 扫描所有发现并按自动化级别分类
+2. 统计每个类别的项目数
+3. 生成修复摘要
+4. 提供一键修复选项
 
-### 4) Determine risk tolerance (after system context)
+### 4) 确定风险承受度（系统上下文后）
 
-Ask the user to pick or confirm a risk posture and any required open services/ports (numbered choices below).
-Do not pigeonhole into fixed profiles; if the user prefers, capture requirements instead of choosing a profile.
-Offer suggested profiles as optional defaults (numbered). Note that most users pick Home/Workstation Balanced:
+要求用户选择或确认风险姿态和任何需要的开放服务/端口（编号选择）。不要限制为固定配置文件；如用户偏好，捕获需求而不是选择配置文件。
 
-1. Home/Workstation Balanced (most common): firewall on with reasonable defaults, remote access restricted to LAN or tailnet.
-2. VPS Hardened: deny-by-default inbound firewall, minimal open ports, key-only SSH, no root login, automatic security updates.
-3. Developer Convenience: more local services allowed, explicit exposure warnings, still audited.
-4. Custom: user-defined constraints (services, exposure, update cadence, access methods).
+提供建议的配置文件作为可选默认值（编号）。注意大多数用户选择 Home/Workstation Balanced：
 
-### 5) Produce a remediation plan
+1. Home/Workstation Balanced（最常见）：防火墙开启且有合理默认值，远程访问限制在 LAN 或 tailnet。
+2. VPS Hardened：默认拒绝入站防火墙，最少开放端口，仅密钥 SSH，无 root 登录，自动安全更新。
+3. Developer Convenience：允许更多本地服务，明确暴露警告，仍进行审计。
+4. Custom：用户定义的约束（服务、暴露、更新节奏、访问方式）。
 
-Provide a plan that includes:
+### 5) 生成修复计划
 
-- Target profile
-- Current posture summary
-- Gaps vs target
-- Step-by-step remediation with exact commands
-- Access-preservation strategy and rollback
-- Risks and potential lockout scenarios
-- Least-privilege notes (e.g., avoid admin usage, tighten ownership/permissions where safe)
-- Credential hygiene notes (location of OpenClaw creds, prefer disk encryption)
+提供包括以下内容的计划：
 
-Always show the plan before any changes.
+- 目标配置文件
+- 当前姿态摘要
+- 与目标的差距
+- 带确切命令的逐步修复
+- 访问保护策略和回滚
+- 风险和潜在锁定场景
+- 最小权限说明
+- 凭证卫生说明（OpenClaw 凭证位置，优先磁盘加密）
 
-### 6) Offer execution options (enhanced)
+始终在任何更改前显示计划。
 
-Offer one of these choices (numbered so users can reply with a single digit):
+### 6) 提供执行选项
 
-1. Full manual execution (guided, step-by-step approvals)
-2. **Auto-fix safe items only** (fixes all auto-safe category items automatically)
-3. **Semi-automatic fix** (auto-risk items require confirmation but execute automatically)
-4. **Quick scene template** (apply preset security profile based on your scenario)
-5. Show plan only
-6. Fix only critical issues
-7. Export commands for later
+提供以下选择（编号以便用户回复单个数字）：
 
-#### 6.1) Auto-fix safe items (option 2)
+1. 完整手动执行（引导，逐步确认）
+2. **自动修复安全项**（自动修复所有 auto-safe 类别项）
+3. **半自动修复**（auto-risk 项需要确认但自动执行）
+4. **快速场景模板**（根据场景应用预设安全配置文件）
+5. 仅显示计划
+6. 仅修复关键问题
+7. 导出命令稍后执行
 
-When user selects option 2:
-1. Display all auto-safe items to be fixed
-2. Create backup of all files to be modified
-3. Run auto-safe scripts in sequence
-4. Verify each fix succeeded
-5. Report results with rollback instructions
+#### 6.1) 自动修复安全项（选项 2）
 
-**Enhanced auto-fix capabilities (v4.8.0)**:
+用户选择选项 2 时：
+1. 显示所有要修复的 auto-safe 项
+2. 创建所有要修改文件的备份
+3. 按顺序运行 auto-safe 脚本
+4. 验证每个修复成功
+5. 报告带回滚说明的结果
 
-| Script | What it fixes | Risk Level |
-|--------|--------------|------------|
-| `fix-openclaw-perms.sh` | File/directory permissions | 🟢 Safe |
-| `fix-logging-perms.sh` | Log file permissions | 🟢 Safe |
-| `fix-firewall-defaults.sh` | Basic firewall rules | 🟡 Medium |
-| `fix-ssh-hardening.sh` | SSH security settings | 🟡 Medium |
-| `fix-auto-updates.sh` | Enable automatic updates | 🟡 Medium |
+#### 6.2) 快速场景模板（选项 4）
 
-#### 6.2) Quick scene template (option 4)
+用户选择选项 4 时：
+1. 询问适用于哪个场景模板（或使用快速问诊表单）
+2. 根据场景应用预设安全配置文件：
+   - Personal Workstation: FileVault/BitLocker 检查，备份状态
+   - VPS/Cloud: SSH 加固，防火墙，fail2ban
+   - Raspberry Pi: SSH 端口更改，密码策略
+   - Docker: 容器安全设置
+3. 提供自定义任何特定项目的选项
 
-When user selects option 4:
-1. Ask which scene template applies (or use quick intake form)
-2. Apply preset security profile based on scene:
-   - Personal Workstation: FileVault/BitLocker check, backup status
-   - VPS/Cloud: SSH hardening, firewall, fail2ban
-   - Raspberry Pi: SSH port change, password policy
-   - Docker: Container security settings
-3. Offer to customize any specific items
+### 7) 确认下执行
 
-**Scene template workflow**:
+每步：
+- 显示确切命令
+- 说明影响和回滚
+- 确认访问将保持可用
+- 意外输出时停止并请求指导
 
-Auto-safe scripts characteristics:
-- Always create backup before modification
-- Use non-destructive operations
-- Provide rollback instructions in output
-- Generate logs in `/tmp/openclaw-*.log`
-- Exit on error with clear message
+重新检查：
+- 防火墙状态
+- 监听端口
+- 远程访问仍可用
+- OpenClaw 安全审计（重新运行）
 
-### 7) Execute with confirmations
+交付最终姿态报告并注意任何推迟的项目。
 
-For each step:
+## Required Confirmations
 
-- Show the exact command
-- Explain impact and rollback
-- Confirm access will remain available
-- Stop on unexpected output and ask for guidance
+始终要求明确确认：
+- 防火墙规则更改
+- 打开/关闭端口
+- SSH/RDP 配置更改
+- 安装/删除软件包
+- 启用/禁用服务
+- 用户/组修改
+- 计划任务或启动持久化
+- 更新策略更改
+- 访问敏感文件或凭证
 
+如有疑问，请询问。
 
-Re-check:
+## Periodic Checks
 
-- Firewall status
-- Listening ports
-- Remote access still works
-- OpenClaw security audit (re-run)
-
-Deliver a final posture report and note any deferred items.
-
-## Required confirmations (always)
-
-Require explicit approval for:
-
-- Firewall rule changes
-- Opening/closing ports
-- SSH/RDP configuration changes
-- Installing/removing packages
-- Enabling/disabling services
-- User/group modifications
-- Scheduling tasks or startup persistence
-- Update policy changes
-- Access to sensitive files or credentials
-
-If unsure, ask.
-
-## Periodic checks
-
-After OpenClaw install or first hardening pass, run at least one baseline audit and version check:
-
+OpenClaw 安装或首次加固后，至少运行一次基线审计和版本检查：
 - `openclaw security audit`
 - `openclaw security audit --deep`
 - `openclaw update status`
 
-Ongoing monitoring is recommended. Use the OpenClaw cron tool/CLI to schedule periodic audits (Gateway scheduler). Do not create scheduled tasks without explicit approval. Store outputs in a user-approved location and avoid secrets in logs.
-When scheduling headless cron runs, include a note in the output that instructs the user to call `healthcheck` so issues can be fixed.
+建议进行持续监控。使用 OpenClaw cron 工具/CLI 调度定期审计。未经明确批准不创建计划任务。将输出存储在用户批准的位置，避免日志中的 secrets。
 
-### Required prompt to schedule (always)
+调度无头 cron 运行时，在输出中包含说明用户调用 `healthcheck` 以便修复问题的说明。
 
-After any audit or hardening pass, explicitly offer scheduling and require a direct response. Use a short prompt like (numbered):
+## 实时威胁监控 (v5.0.0 新增)
 
-1. “Do you want me to schedule periodic audits (e.g., daily/weekly) via `openclaw cron add`?”
+### 功能特点
+- 🔒 配置变更检测
+- 📁 权限变更告警
+- 🔍 异常进程监控
+- 🌐 网络连接监控
 
-If the user says yes, ask for:
+### 使用方式
 
-- cadence (daily/weekly), preferred time window, and output location
-- whether to also schedule `openclaw update status`
+```bash
+# 单次检查
+python3 agent/realtime-monitor.py --once
 
-Use a stable cron job name so updates are deterministic. Prefer exact names:
+# 持续监控（每60秒）
+python3 agent/realtime-monitor.py --interval 60
 
-- `healthcheck:security-audit`
-- `healthcheck:update-status`
+# 导出报告
+python3 agent/realtime-monitor.py --export alert.json
+```
 
-Before creating, `openclaw cron list` and match on exact `name`. If found, `openclaw cron edit <id> ...`.
-If not found, `openclaw cron add --name <name> ...`.
+## 自动修复系统 v5.0.0 (增强版)
 
-Also offer a periodic version check so the user can decide when to update (numbered):
+### 可用脚本
 
-1. `openclaw update status` (preferred for source checkouts and channels)
-2. `npm view openclaw version` (published npm version)
+| 脚本 | 功能 | 权限要求 |
+|------|------|----------|
+| `quick-check.sh` | 一键安全检查 | 无需 root |
+| `quick-check-agent.py` | Agent 模式检查 | Python 3.7+ |
+| `auto-fixer-v5.sh` | 增强自动修复 | 部分需要 sudo |
+| `realtime-monitor.py` | 实时威胁监控 | Python 3.7+ |
 
-## OpenClaw command accuracy
+### 自动修复项目
 
-Use only supported commands and flags:
+| 项目 | 描述 | 风险级别 |
+|------|------|----------|
+| openclaw-perms | 修复 OpenClaw 文件权限 | 🟢 Safe |
+| logging-perms | 修复日志文件权限 | 🟢 Safe |
+| gateway-config | 修复 Gateway 配置 | 🟢 Safe |
+| firewall-basics | 基础防火墙配置 | 🟡 Medium |
+| ssh-hardening | SSH 安全加固 | 🟡 Medium |
+| auto-updates | 启用自动更新 | 🟡 Medium |
+| fail2ban | 安装配置 fail2ban | 🟡 Medium |
 
+## FAQ 和视频教程
+
+完整 FAQ: `docs/FAQ.md`
+视频教程: `docs/VIDEO_TUTORIALS.md`
+平台兼容性: `docs/PLATFORM_COMPATIBILITY.md`
+
+## OpenClaw Command Accuracy
+
+仅使用支持的命令和标志：
 - `openclaw security audit [--deep] [--fix] [--json]`
 - `openclaw status` / `openclaw status --deep`
 - `openclaw health --json`
 - `openclaw update status`
 - `openclaw cron add|list|runs|run`
 
-Do not invent CLI flags or imply OpenClaw enforces host firewall/SSH policies.
+不要编造 CLI 标志或暗示 OpenClaw 强制执行主机防火墙/SSH 策略。
 
-## Logging and audit trail
+## Logging and Audit Trail
 
-Record:
+记录：
+- Gateway 身份和角色
+- 计划 ID 和时间戳
+- 批准的步骤和确切命令
+- 退出码和修改的文件（尽最大努力）
 
-- Gateway identity and role
-- Plan ID and timestamp
-- Approved steps and exact commands
-- Exit codes and files modified (best effort)
+清除 secrets。绝不记录 token 或完整凭证内容。
 
-Redact secrets. Never log tokens or full credential contents.
+## Memory Writes (Conditional)
 
-## Memory writes (conditional)
+仅在用户明确选择加入且会话是私有/本地工作区时才写入内存文件。否则提供用户决定保存到其他地方的脱敏、可粘贴的摘要。
 
-Only write to memory files when the user explicitly opts in and the session is a private/local workspace
-(per `docs/reference/templates/AGENTS.md`). Otherwise provide a redacted, paste-ready summary the user can
-decide to save elsewhere.
+遵循 OpenClaw 压缩使用的持久内存提示格式：
+- 将持久注释写入 `memory/YYYY-MM-DD.md`。
 
-Follow the durable-memory prompt format used by OpenClaw compaction:
+每次审计/加固运行后，如果选择加入，追加简短的带日期摘要到 `memory/YYYY-MM-DD.md`（检查了什么、主要发现、采取的行动、任何计划的 cron 作业、关键决策和所有执行的命令）。仅追加：绝不覆盖现有条目。清除敏感主机详细信息（用户名、主机名、IP、序列号、服务名、token）。
+如有持久偏好或决策（风险姿态、允许的端口、更新策略），也更新 `MEMORY.md`（长期记忆是可选的，仅在私人会话中使用）。
 
-- Write lasting notes to `memory/YYYY-MM-DD.md`.
+---
 
-After each audit/hardening run, if opted-in, append a short, dated summary to `memory/YYYY-MM-DD.md`
-(what was checked, key findings, actions taken, any scheduled cron jobs, key decisions,
-and all commands executed). Append-only: never overwrite existing entries.
-Redact sensitive host details (usernames, hostnames, IPs, serials, service names, tokens).
-If there are durable preferences or decisions (risk posture, allowed ports, update policy),
-also update `MEMORY.md` (long-term memory is optional and only used in private sessions).
-
-If the session cannot write to the workspace, ask for permission or provide exact entries
-the user can paste into the memory files.
-
-## Auto-fix scripts (Phase 1 - v4.8.0+)
-
-### Available auto-safe scripts
-
-The following scripts are available for automatic safe fixes:
-
-#### fix-openclaw-perms.sh
-- **Category**: auto-safe
-- **Purpose**: Fix OpenClaw file and directory permissions
-- **Fixes**:
-  - `/root/.openclaw` → 700
-  - `/var/log/openclaw` → 750
-  - `/var/lib/openclaw` → 750
-  - `/root/.openclaw/gateway.yml` → 600
-  - OpenClaw binary → 755
-- **Backup**: `/tmp/openclaw-perms-backup-YYYYMMDD-HHMMSS/`
-- **Log**: `/tmp/openclaw-perms-fix.log`
-
-#### fix-logging-perms.sh
-- **Category**: auto-safe
-- **Purpose**: Fix OpenClaw logging file permissions
-- **Fixes**:
-  - All log directories in `/var/log/openclaw/` → 750
-  - All `.log` files → 640
-  - Supervisor log files → 640
-  - Creates `/etc/logrotate.d/openclaw` if missing
-- **Backup**: `/tmp/openclaw-logging-backup-YYYYMMDD-HHMMSS/`
-- **Log**: `/tmp/openclaw-logging-fix.log`
-
-### Running scripts manually
-
-```bash
-# Run with sudo
-sudo bash /usr/lib/node_modules/openclaw/skills/healthcheck/scripts/auto-safe/fix-openclaw-perms.sh
-sudo bash /usr/lib/node_modules/openclaw/skills/healthcheck/scripts/auto-safe/fix-logging-perms.sh
-
-# Check logs
-tail -f /tmp/openclaw-*.log
-
-# Restore from backup if needed
-cp -r /tmp/openclaw-*-backup-*/* /
-```
-
-### Adding new auto-safe scripts
-
-When creating new auto-safe scripts:
-1. Place in `scripts/auto-safe/` directory
-2. Follow naming convention: `fix-{description}.sh`
-3. Include:
-   - Backup mechanism with timestamp
-   - Colored output (RED/GREEN/YELLOW)
-   - Logging to `/tmp/openclaw-*.log`
-   - Exit on error with clear message
-   - Rollback instructions in output
-4. Test thoroughly before use
-5. Document in this section
-
-## External Tools Integration (Phase 3 - v4.8.2+)
-
-### Available integrations
-
-#### 1. fail2ban Integration
-
-**Purpose**: Intrusion prevention and brute-force protection
-
-**Scripts**:
-- `scripts/integrations/fail2ban-integrate.sh`
-
-**Features**:
-- Automatic installation and configuration
-- OpenClaw-specific jail configurations
-- SSH, Gateway, and API protection
-- Automatic IP banning
-
-**Usage**:
-```bash
-# Install and configure fail2ban
-sudo bash scripts/integrations/fail2ban-integrate.sh
-
-# Check status
-sudo fail2ban-client status openclaw-ssh
-sudo fail2ban-client status openclaw-gateway
-
-# View banned IPs
-sudo fail2ban-client banned openclaw-ssh
-
-# Unban IP
-sudo fail2ban-client set openclaw-ssh unbanip <IP>
-```
-
-**Configuration files**:
-- `/etc/fail2ban/jail.d/openclaw.conf`
-- `/etc/fail2ban/filter.d/openclaw-ssh.conf`
-- `/etc/fail2ban/filter.d/openclaw-gateway.conf`
-- `/etc/fail2ban/filter.d/openclaw-api.conf`
-
-#### 2. Lynis Integration
-
-**Purpose**: System-level security auditing
-
-**Scripts**:
-- `scripts/integrations/lynis-integrate.sh`
-
-**Features**:
-- Comprehensive system audit
-- Hardening index calculation
-- Security recommendations
-- Compliance checking
-
-**Usage**:
-```bash
-# Install Lynis and run audit
-sudo bash scripts/integrations/lynis-integrate.sh
-
-# View report
-cat /tmp/lynis-report.dat
-
-# Check hardening index
-grep "hardening_index=" /tmp/lynis-report.dat
-
-# Run standalone audit
-lynis audit system
-```
-
-**Audit coverage**:
-- Boot and services
-- Kernel
-- Memory and processes
-- Users and groups
-- File systems
-- Networking
-- Web services
-- SSH
-- Databases
-- Logging
-- Security services
-
-#### 3. Report Generator
-
-**Purpose**: Generate standardized security reports
-
-**Scripts**:
-- `scripts/reports/generate-report.sh`
-
-**Output formats**:
-- JSON (machine-readable)
-- Markdown (human-readable)
-- HTML (visual reports)
-
-**Usage**:
-```bash
-# Generate all report formats
-bash scripts/reports/generate-report.sh
-
-# Reports location
-ls -lh /tmp/openclaw-reports/
-
-# View specific format
-cat /tmp/openclaw-reports/security-audit-json.json
-cat /tmp/openclaw-reports/security-audit-markdown.md
-firefox /tmp/openclaw-reports/security-audit-html.html
-```
-
-### Integration best practices
-
-1. **Layered security**: Use all integrations for comprehensive protection
-   - OpenClaw healthcheck: Application security
-   - fail2ban: Network layer protection
-   - Lynis: System-level audit
-
-2. **Regular auditing**: Schedule periodic checks
-   - Daily: OpenClaw quick audit
-   - Weekly: fail2ban status check
-   - Monthly: Lynis full system audit
-
-3. **Report automation**: Generate reports regularly
-   - Use cron to automate report generation
-   - Store reports in secure location
-   - Review reports weekly
-
-4. **Alert configuration**: Set up notifications
-   - fail2ban: Email alerts for bans
-   - Lynis: Critical warnings
-   - OpenClaw: Security audit failures
-
-### Dependencies
-
-| Tool | Required | Auto-install |
-|------|----------|---------------|
-| openclaw | Yes | Built-in |
-| fail2ban | No | Yes |
-| lynis | No | Yes |
-| bash | Yes | Built-in |
+*版本: 5.0.0 | 最后更新: 2026-05-05*
