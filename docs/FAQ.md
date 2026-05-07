@@ -550,3 +550,227 @@ bash <技能路径>/scripts/restore-config.sh <backup-file>
 ---
 
 *最后更新: v5.0.0 | 2026-05-05*
+
+---
+
+## 7. SSH 安全专题 (v5.0.0 新增)
+
+### Q7.1: SSH 安全评分偏低怎么办？
+
+**答**: SSH 安全评分偏低通常是因为以下配置问题：
+
+| 问题 | 影响 | 修复命令 |
+|------|------|----------|
+| 允许 root 登录 | 🔴 高危 | 使用 `scripts/fix-ssh-hardening.sh` |
+| 使用密码认证 | 🔴 高危 | 配置 SSH 密钥后禁用密码 |
+| 使用默认 22 端口 | 🟡 中危 | 修改 SSH 端口 |
+| 未限制登录用户 | 🟡 中危 | 配置 AllowUsers |
+
+**快速修复**:
+```bash
+# 一键检查 SSH 状态
+bash scripts/fix-ssh-hardening.sh status
+
+# 交互式修复
+bash scripts/fix-ssh-hardening.sh fix
+```
+
+**详细指南**: 查看 [SSH_FIX_GUIDE.md](SSH_FIX_GUIDE.md)
+
+---
+
+### Q7.2: 如何安全地禁用 root 登录？
+
+**答**: 禁用 root 登录前必须确保：
+
+1. **已有普通用户可用**
+```bash
+# 检查普通用户
+id username
+
+# 创建新用户（如果没有）
+sudo useradd -m -s /bin/bash username
+sudo passwd username
+```
+
+2. **使用修复脚本**
+```bash
+bash scripts/fix-ssh-hardening.sh fix
+# 选择 "禁用root登录" 选项
+```
+
+3. **验证修复**
+```bash
+# 测试普通用户登录
+ssh username@server
+
+# 测试 root 无法登录
+ssh root@server
+# 应该显示: Permission denied
+```
+
+**⚠️ 重要**: 不要直接编辑配置文件，先保留一个有效的 SSH 连接！
+
+---
+
+### Q7.3: 如何配置 SSH 密钥认证？
+
+**答**: 按以下步骤配置：
+
+**Step 1: 生成密钥对**
+```bash
+# 推荐 Ed25519 算法
+ssh-keygen -t ed25519 -C "your-email@example.com"
+
+# 或使用 RSA
+ssh-keygen -t rsa -b 4096 -C "your-email@example.com"
+```
+
+**Step 2: 复制公钥到服务器**
+```bash
+ssh-copy-id username@server
+```
+
+**Step 3: 测试密钥登录**
+```bash
+ssh username@server
+# 应该无需密码直接登录
+```
+
+**Step 4: 禁用密码认证（可选）**
+```bash
+bash scripts/fix-ssh-hardening.sh fix
+# 选择 "禁用密码认证" 选项
+```
+
+---
+
+### Q7.4: 忘记配置普通用户，现在无法登录怎么办？
+
+**答**: 需要通过物理控制台或 VNC 恢复：
+
+**方法 1: 使用控制台/VNC**
+1. 登录服务器控制台（云平台 VNC 或物理键盘）
+2. 恢复 SSH 配置：
+```bash
+sudo cp /etc/ssh/sshd_config.backup.XXX /etc/ssh/sshd_config
+sudo systemctl restart sshd
+```
+
+**方法 2: 使用修复脚本恢复**
+```bash
+bash scripts/fix-ssh-hardening.sh restore
+```
+
+**方法 3: 单用户模式**
+1. 重启系统
+2. 在启动菜单选择 "Recovery Mode"
+3. 进入 root shell
+4. 修复 SSH 配置
+
+**预防措施**: 始终在执行 SSH 修改前创建备份，并保持当前连接不断开。
+
+---
+
+### Q7.5: 检查显示 SSH 使用默认端口，需要修改吗？
+
+**答**: 修改 SSH 端口有以下考虑：
+
+**优点**:
+- 减少自动化扫描攻击
+- 降低日志中的暴力破解尝试
+- 稍微增加攻击者发现难度
+
+**缺点**:
+- 需要记住非标准端口
+- 某些防火墙可能需要额外配置
+- 安全性提升有限（属于"隐藏式安全"）
+
+**建议**:
+- 如果服务器暴露在互联网：建议修改
+- 如果在内网：可选修改
+- 务必配合禁用密码认证使用
+
+**修改命令**:
+```bash
+bash scripts/fix-ssh-hardening.sh fix
+# 选择 "修改默认端口" 选项
+# 建议使用 1024-65535 之间的高位端口
+```
+
+---
+
+### Q7.6: SSH 配置更改后如何验证？
+
+**答**: 使用以下方法验证：
+
+**方法 1: 使用脚本验证**
+```bash
+# 查看当前状态
+bash scripts/fix-ssh-hardening.sh status
+
+# 验证配置语法
+bash scripts/fix-ssh-hardening.sh test
+```
+
+**方法 2: 手动验证配置**
+```bash
+# 检查配置语法
+sudo sshd -t
+
+# 查看当前配置
+sudo sshd -T | grep -E "permitrootlogin|passwordauthentication|port"
+```
+
+**方法 3: 实际登录测试**
+```bash
+# 测试密钥登录
+ssh -o PasswordAuthentication=no username@server
+
+# 测试 root 无法登录
+ssh root@server
+# 应该被拒绝
+```
+
+---
+
+### Q7.7: 批量检查多台服务器的 SSH 配置？
+
+**答**: 使用 v5.0.0 新增的批量检查功能：
+
+**Step 1: 创建主机列表**
+```bash
+cat > hosts.txt << 'HOSTS'
+# 服务器列表
+user@server1.example.com
+user@server2.example.com
+192.168.1.100
+192.168.1.101:2222
+HOSTS
+```
+
+**Step 2: 执行批量检查**
+```bash
+# 检查所有主机
+bash scripts/batch-scan.sh -f hosts.txt
+
+# 并行检查（5个并发）
+bash scripts/batch-scan.sh -f hosts.txt -p 5
+
+# 仅显示汇总
+bash scripts/batch-scan.sh -f hosts.txt -s
+```
+
+**Step 3: 查看报告**
+```bash
+# 查看汇总
+ls reports/batch-scan-*/SUMMARY.md
+
+# 查看单个主机详情
+ls reports/batch-scan-*/*_server1_example_com.txt
+```
+
+---
+
+**SSH 专题最后更新**: 2026-05-07  
+**版本**: 5.0.0

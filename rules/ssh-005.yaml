@@ -1,0 +1,30 @@
+id: ssh-005
+name: SSH Key Authentication Only
+description: |
+  检查SSH是否强制使用密钥认证（禁用密码认证）
+  
+  安全风险:
+  - 密码认证容易被暴力破解
+  - 密钥认证提供更强的安全性
+  
+  修复建议:
+  1. 编辑 /etc/ssh/sshd_config
+  2. 设置 PasswordAuthentication no
+  3. 设置 PubkeyAuthentication yes
+  4. 重启SSH服务
+  
+  ⚠️ 警告: 启用前确保已配置SSH密钥，否则会被锁定！
+category: security
+severity: high
+check_type: config
+config_path: /etc/ssh/sshd_config
+pattern: "^PasswordAuthentication\\s+no"
+expect_match: true
+fix_command: |
+  echo "⚠️  警告: 启用密钥认证前请确保已配置SSH密钥！" &&
+  read -p "确认已配置密钥并继续? (yes/no): " confirm &&
+  [ "$confirm" = "yes" ] &&
+  sudo sed -i 's/^#*PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config &&
+  sudo sed -i 's/^#*PubkeyAuthentication.*/PubkeyAuthentication yes/' /etc/ssh/sshd_config &&
+  sudo systemctl restart sshd
+fix_description: "禁用密码认证，仅允许密钥认证"

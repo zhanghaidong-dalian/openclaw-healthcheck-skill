@@ -1,0 +1,23 @@
+id: ssh-004
+name: SSH Root Login Disabled
+description: |
+  检查SSH是否禁用root用户直接登录
+  
+  安全风险:
+  - root用户直接登录一旦密码泄露，攻击者获得最高权限
+  - 无法进行用户操作审计
+  
+  修复建议:
+  1. 编辑 /etc/ssh/sshd_config
+  2. 设置 PermitRootLogin no
+  3. 重启SSH服务: systemctl restart sshd
+category: security
+severity: high
+check_type: config
+config_path: /etc/ssh/sshd_config
+pattern: "^PermitRootLogin\\s+no"
+expect_match: true
+fix_command: |
+  sudo sed -i 's/^#*PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config &&
+  sudo systemctl restart sshd
+fix_description: "禁用root登录并重启SSH服务"

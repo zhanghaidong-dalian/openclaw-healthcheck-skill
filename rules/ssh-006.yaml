@@ -1,0 +1,23 @@
+id: ssh-006
+name: SSH Protocol Version 2
+description: |
+  检查SSH是否使用安全的协议版本2
+  
+  安全风险:
+  - SSH协议版本1存在严重安全漏洞
+  - 版本2提供更强大的加密和认证机制
+  
+  修复建议:
+  1. 编辑 /etc/ssh/sshd_config
+  2. 添加或修改 Protocol 2
+  3. 重启SSH服务
+category: security
+severity: medium
+check_type: config
+config_path: /etc/ssh/sshd_config
+pattern: "^Protocol\\s+2"
+expect_match: true
+fix_command: |
+  sudo sed -i 's/^#*Protocol.*/Protocol 2/' /etc/ssh/sshd_config &&
+  sudo systemctl restart sshd
+fix_description: "强制使用SSH协议版本2"

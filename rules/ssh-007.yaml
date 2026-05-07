@@ -1,0 +1,29 @@
+id: ssh-007
+name: SSH Port Changed from Default
+description: |
+  检查SSH是否使用非默认端口（22以外的端口）
+  
+  安全优势:
+  - 减少自动化攻击扫描
+  - 降低被暴力破解的概率
+  
+  修复建议:
+  1. 编辑 /etc/ssh/sshd_config
+  2. 修改 Port 2222（或其他高位端口）
+  3. 重启SSH服务
+  4. 更新防火墙规则
+  
+  ⚠️ 注意: 修改后需要使用新端口连接！
+category: security
+severity: medium
+check_type: config
+config_path: /etc/ssh/sshd_config
+pattern: "^Port\\s+(?!22\\s*$)\\d+"
+expect_match: true
+fix_command: |
+  read -p "请输入新SSH端口(1024-65535): " port &&
+  [ "$port" -ge 1024 ] && [ "$port" -le 65535 ] &&
+  sudo sed -i "s/^#*Port.*/Port $port/" /etc/ssh/sshd_config &&
+  sudo systemctl restart sshd &&
+  echo "SSH端口已修改为 $port，请使用新端口连接！"
+fix_description: "修改SSH默认端口"
