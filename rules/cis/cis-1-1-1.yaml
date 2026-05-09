@@ -1,0 +1,9 @@
+id: cis-1-1-1
+category: cis/filesystem
+title: "确保 /tmp 分区配置了 nodev 选项"
+severity: medium
+description: "/tmp 分区上的 nodev 选项必须启用
+check: mount | grep -E '\s/tmp\s' | grep -v nodev
+fix: "echo 'tmpfs /tmp tmpfs defaults,rw,nosuid,nodev,noexec,relatime 0 0' >> /etc/fstab"
+risk_level: none
+requires_root: true

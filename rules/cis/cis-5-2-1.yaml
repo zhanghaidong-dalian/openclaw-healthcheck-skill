@@ -1,0 +1,9 @@
+id: cis-5-2-1
+category: cis/firewall
+title: "确保配置了默认拒绝防火墙规则"
+severity: high
+description: "必须配置默认拒绝入站规则
+check: "iptables -L INPUT | grep -i 'default policy accept' || ufw status | grep 'incoming' | grep 'ALLOW'"
+fix: "ufw default deny incoming && ufw --force enable"
+risk_level: none
+requires_root: true

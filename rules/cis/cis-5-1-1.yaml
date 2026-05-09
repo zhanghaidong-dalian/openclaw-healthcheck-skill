@@ -1,0 +1,17 @@
+# CIS Benchmark - SSH配置
+
+id: cis-5-1-1
+category: cis/ssh
+title: "确保 sshd Config 配置了适当权限"
+severity: high
+description: |
+  SSH守护进程配置文件必须权限为 0600 或更严格。
+compliance:
+  - cis: "5.1.1"
+  - level: 1
+check: |
+  stat -c '%a' /etc/ssh/sshd_config | grep -vE '^[0-6]{3}$'
+fix: |
+  chmod 0600 /etc/ssh/sshd_config
+risk_level: none
+requires_root: true

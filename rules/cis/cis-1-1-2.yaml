@@ -1,0 +1,17 @@
+# CIS Benchmark Level 1
+
+id: cis-1-1-2
+category: cis/filesystem
+title: "确保 /tmp 分区配置了 nosuid 选项"
+severity: medium
+description: |
+  /tmp 分区上的 nosuid 选项必须启用，以防止执行 setuid 程序。
+compliance:
+  - cis: "1.1.2"
+check: |
+  mount | grep -E '\s/tmp\s' | grep -v nosuid
+fix: |
+  编辑 /etc/fstab 添加 nosuid 选项：
+  tmpfs /tmp tmpfs defaults,rw,nosuid,nodev,noexec,relatime 0 0
+risk_level: none
+requires_root: true

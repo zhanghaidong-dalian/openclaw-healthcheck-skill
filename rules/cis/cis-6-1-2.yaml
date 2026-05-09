@@ -1,0 +1,9 @@
+id: cis-6-1-2
+category: cis/permissions
+title: "确保 /etc/shadow 权限为 000 或 640"
+severity: high
+description: "/etc/shadow 应该只能被root读取
+check: "perm=$(stat -c '%a' /etc/shadow); [ \"$perm\" != \"0\" ] && [ \"$perm\" != \"640\" ] && [ \"$perm\" != \"00\" ]"
+fix: chmod 000 /etc/shadow
+risk_level: medium
+requires_root: true

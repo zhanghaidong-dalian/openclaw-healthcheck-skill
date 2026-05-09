@@ -1,0 +1,9 @@
+id: cis-5-1-2
+category: cis/ssh
+title: "确保 SSH Protocol 设置为 2"
+severity: high
+description: "SSH必须配置为只使用Protocol 2
+check: grep '^Protocol' /etc/ssh/sshd_config | grep -v '2'
+fix: "echo 'Protocol 2' >> /etc/ssh/sshd_config && systemctl restart sshd"
+risk_level: medium
+requires_root: true

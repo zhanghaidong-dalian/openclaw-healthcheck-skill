@@ -1,0 +1,17 @@
+# CIS Benchmark Level 1
+
+id: cis-6-1-4
+category: cis/permissions
+title: "确保 /etc/gshadow 权限为 000 或 640"
+severity: high
+description: |
+  /etc/gshadow 应该只能被root读取。
+compliance:
+  - cis: "6.1.4"
+check: |
+  perm=$(stat -c '%a' /etc/gshadow)
+  [ "$perm" != "0" ] && [ "$perm" != "640" ] && [ "$perm" != "00" ]
+fix: |
+  chmod 000 /etc/gshadow
+risk_level: medium
+requires_root: true

@@ -1,0 +1,16 @@
+# CIS Benchmark - 系统文件权限
+
+id: cis-6-1-1
+category: cis/permissions
+title: "确保 /etc/passwd 权限为 644 或更严格"
+severity: medium
+description: |
+  /etc/passwd 必须对所有用户可读，但只能由root写。
+compliance:
+  - cis: "6.1.1"
+check: |
+  stat -c '%a %U %G' /etc/passwd | awk '$1 > 644'
+fix: |
+  chmod 644 /etc/passwd
+risk_level: none
+requires_root: true

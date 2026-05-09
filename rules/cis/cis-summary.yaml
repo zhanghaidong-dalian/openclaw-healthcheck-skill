@@ -1,0 +1,22 @@
+# CIS Benchmark 合规摘要
+
+id: cis-summary
+category: cis/summary
+title: "CIS Benchmark 合规概览"
+severity: info
+description: |
+  CIS Benchmark 合规检测摘要
+  
+  覆盖的检查项：
+  - 文件系统安全 (1.1.x)
+  - SSH配置 (5.1.x, 5.2.x)
+  - 防火墙配置 (5.2.1)
+  - 系统文件权限 (6.1.x)
+  
+  合规等级：
+  - Level 1: 基础安全配置
+  - Level 2: 深度防御配置
+compliance:
+  references:
+    - "CIS Benchmark for Linux Distributions"
+    - "https://www.cisecurity.org/cis-benchmarks"
