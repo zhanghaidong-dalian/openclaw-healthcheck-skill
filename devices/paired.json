@@ -92,7 +92,7 @@
     "publicKey": "A6t1kHmT19uJsKZS6AifM5VqKIYrQsLmq3Qfq8_ghmU",
     "platform": "linux",
     "clientId": "cli",
-    "clientMode": "cli",
+    "clientMode": "probe",
     "role": "operator",
     "roles": [
       "operator"
