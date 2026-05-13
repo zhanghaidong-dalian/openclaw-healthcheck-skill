@@ -2,10 +2,10 @@
   "entries": {
     "/workspace/projects/openclaw.json": {
       "lastKnownGood": {
-        "hash": "96244d1a107578efaf40d1bbd60d44242130d76a61cd23b48fd22182284d3482",
-        "bytes": 8992,
-        "mtimeMs": 1778674376201.3372,
-        "ctimeMs": 1778674376203.3372,
+        "hash": "6651b6b9e00852373a7da20ab33634342defbf416ef17d0ecc4778d1e159a424",
+        "bytes": 10238,
+        "mtimeMs": 1778680501869.3477,
+        "ctimeMs": 1778680501871.3477,
         "dev": "64770",
         "ino": "650780",
         "mode": 384,
@@ -14,14 +14,14 @@
         "gid": 0,
         "hasMeta": true,
         "gatewayMode": "local",
-        "observedAt": "2026-05-13T13:45:28.840Z"
+        "observedAt": "2026-05-13T13:56:25.397Z"
       },
       "lastObservedSuspiciousSignature": null,
       "lastPromotedGood": {
-        "hash": "96244d1a107578efaf40d1bbd60d44242130d76a61cd23b48fd22182284d3482",
-        "bytes": 8992,
-        "mtimeMs": 1778674376201.3372,
-        "ctimeMs": 1778674376203.3372,
+        "hash": "6651b6b9e00852373a7da20ab33634342defbf416ef17d0ecc4778d1e159a424",
+        "bytes": 10238,
+        "mtimeMs": 1778680501869.3477,
+        "ctimeMs": 1778680501871.3477,
         "dev": "64770",
         "ino": "650780",
         "mode": 33152,
@@ -30,7 +30,7 @@
         "gid": 0,
         "hasMeta": true,
         "gatewayMode": "local",
-        "observedAt": "2026-05-13T13:45:14.822Z"
+        "observedAt": "2026-05-13T13:56:23.459Z"
       }
     }
   }

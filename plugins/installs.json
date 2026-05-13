@@ -4,9 +4,9 @@
   "hostContractVersion": "2026.5.7",
   "compatRegistryVersion": "f495518e4bb408b5b516ec1add5c2c1850580753e490d00c996d690c24523e34",
   "migrationVersion": 1,
-  "policyHash": "5cc7d19b549b4e6b184390d7dfb464148ab2bc2e41e93da33f55c13abbe45832",
-  "generatedAtMs": 1778673597442,
-  "refreshReason": "source-changed",
+  "policyHash": "0bb09e8ff609ef53bc3ae36a6012e57a7ea29cc682d3c89dc61fc3e568e57c0d",
+  "generatedAtMs": 1778680247088,
+  "refreshReason": "migration",
   "installRecords": {
     "coze-openclaw-plugin": {
       "source": "npm",
@@ -3362,62 +3362,6 @@
       }
     },
     {
-      "pluginId": "openclaw-weixin",
-      "manifestPath": "/workspace/projects/npm/node_modules/@tencent-weixin/openclaw-weixin/openclaw.plugin.json",
-      "manifestHash": "7b4b9f21af8972468af852a068184e4314b6aa29c4f189290f69d7cc628d236d",
-      "manifestFile": {
-        "size": 433,
-        "mtimeMs": 1778673596756.868,
-        "ctimeMs": 1778673596756.868
-      },
-      "source": "/workspace/projects/npm/node_modules/@tencent-weixin/openclaw-weixin/dist/index.js",
-      "rootDir": "/workspace/projects/npm/node_modules/@tencent-weixin/openclaw-weixin",
-      "origin": "global",
-      "enabled": true,
-      "startup": {
-        "sidecar": false,
-        "memory": false,
-        "deferConfiguredChannelFullLoadUntilAfterListen": false,
-        "agentHarnesses": []
-      },
-      "compat": [],
-      "packageName": "@tencent-weixin/openclaw-weixin",
-      "packageVersion": "2.4.3",
-      "installRecordHash": "2d8a36561e3bd49da1025917507bbcfbaad069d9e094a7c52c337dce6babbe43",
-      "packageInstall": {
-        "defaultChoice": "npm",
-        "npm": {
-          "spec": "@tencent-weixin/openclaw-weixin",
-          "packageName": "@tencent-weixin/openclaw-weixin",
-          "selectorKind": "none",
-          "exactVersion": false,
-          "pinState": "floating-without-integrity"
-        },
-        "warnings": [
-          "npm-spec-floating",
-          "npm-spec-missing-integrity"
-        ]
-      },
-      "packageChannel": {
-        "id": "openclaw-weixin",
-        "label": "openclaw-weixin",
-        "selectionLabel": "openclaw-weixin",
-        "docsPath": "/channels/openclaw-weixin",
-        "docsLabel": "openclaw-weixin",
-        "blurb": "Weixin channel",
-        "order": 75
-      },
-      "packageJson": {
-        "path": "package.json",
-        "hash": "7cbc8b8c6aff6de947724067c1c3bf993663c99a86f2ce89f2cc7075872e93b4",
-        "fileSignature": {
-          "size": 1480,
-          "mtimeMs": 1778673596756.868,
-          "ctimeMs": 1778673596756.868
-        }
-      }
-    },
-    {
       "pluginId": "openclaw-cozeloop-trace",
       "manifestPath": "/workspace/projects/extensions/openclaw-cozeloop-trace/openclaw.plugin.json",
       "manifestHash": "6b79676f4240de27443a3491a785bf2d2a52645a2b629d01db9e44766db6f21e",
@@ -3514,6 +3458,62 @@
       }
     },
     {
+      "pluginId": "openclaw-weixin",
+      "manifestPath": "/workspace/projects/npm/node_modules/@tencent-weixin/openclaw-weixin/openclaw.plugin.json",
+      "manifestHash": "7b4b9f21af8972468af852a068184e4314b6aa29c4f189290f69d7cc628d236d",
+      "manifestFile": {
+        "size": 433,
+        "mtimeMs": 1778673596756.868,
+        "ctimeMs": 1778673596756.868
+      },
+      "source": "/workspace/projects/npm/node_modules/@tencent-weixin/openclaw-weixin/dist/index.js",
+      "rootDir": "/workspace/projects/npm/node_modules/@tencent-weixin/openclaw-weixin",
+      "origin": "global",
+      "enabled": true,
+      "startup": {
+        "sidecar": false,
+        "memory": false,
+        "deferConfiguredChannelFullLoadUntilAfterListen": false,
+        "agentHarnesses": []
+      },
+      "compat": [],
+      "packageName": "@tencent-weixin/openclaw-weixin",
+      "packageVersion": "2.4.3",
+      "installRecordHash": "2d8a36561e3bd49da1025917507bbcfbaad069d9e094a7c52c337dce6babbe43",
+      "packageInstall": {
+        "defaultChoice": "npm",
+        "npm": {
+          "spec": "@tencent-weixin/openclaw-weixin",
+          "packageName": "@tencent-weixin/openclaw-weixin",
+          "selectorKind": "none",
+          "exactVersion": false,
+          "pinState": "floating-without-integrity"
+        },
+        "warnings": [
+          "npm-spec-floating",
+          "npm-spec-missing-integrity"
+        ]
+      },
+      "packageChannel": {
+        "id": "openclaw-weixin",
+        "label": "openclaw-weixin",
+        "selectionLabel": "openclaw-weixin",
+        "docsPath": "/channels/openclaw-weixin",
+        "docsLabel": "openclaw-weixin",
+        "blurb": "Weixin channel",
+        "order": 75
+      },
+      "packageJson": {
+        "path": "package.json",
+        "hash": "7cbc8b8c6aff6de947724067c1c3bf993663c99a86f2ce89f2cc7075872e93b4",
+        "fileSignature": {
+          "size": 1480,
+          "mtimeMs": 1778673596756.868,
+          "ctimeMs": 1778673596756.868
+        }
+      }
+    },
+    {
       "pluginId": "wecom-openclaw-plugin",
       "manifestPath": "/workspace/projects/extensions/wecom-openclaw-plugin/openclaw.plugin.json",
       "manifestHash": "d36bb91595a6e2beebdf84919dd0c9da5db8dac9d875f113190d0654ec2e2cdb",
@@ -3574,12 +3574,5 @@
       }
     }
   ],
-  "diagnostics": [
-    {
-      "level": "warn",
-      "pluginId": "coze-openclaw-plugin",
-      "message": "installed plugin package requires compiled runtime output for TypeScript entry index.ts: expected ./dist/index.js, ./dist/index.mjs, ./dist/index.cjs, index.js, index.mjs, index.cjs",
-      "source": "/workspace/projects/extensions/coze-openclaw-plugin"
-    }
-  ]
+  "diagnostics": []
 }

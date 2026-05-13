@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "1c1a7124-fe0b-4389-aaed-c50cac85f360",
-    "updatedAt": 1778673291422,
+    "updatedAt": 1778680470237,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -13,8 +13,8 @@
     "lastChannel": "feishu",
     "origin": {
       "label": "haidong",
-      "provider": "webchat",
-      "surface": "webchat",
+      "provider": "feishu",
+      "surface": "feishu",
       "chatType": "direct",
       "from": "feishu:ou_f70eb83737eac4282ce8bee3202593c7",
       "to": "user:ou_f70eb83737eac4282ce8bee3202593c7",
@@ -169,7 +169,7 @@
     "model": "auto",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1778673280434,
+      "generatedAt": 1778680388051,
       "sessionId": "1c1a7124-fe0b-4389-aaed-c50cac85f360",
       "sessionKey": "agent:main:main",
       "provider": "coze",
@@ -189,9 +189,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 54236,
-        "projectContextChars": 24883,
-        "nonProjectContextChars": 29353
+        "chars": 55761,
+        "projectContextChars": 24889,
+        "nonProjectContextChars": 30872
       },
       "injectedWorkspaceFiles": [
         {
@@ -254,8 +254,8 @@
           "name": "MEMORY.md",
           "path": "/workspace/projects/workspace/MEMORY.md",
           "missing": false,
-          "rawChars": 10587,
-          "injectedChars": 10587,
+          "rawChars": 10593,
+          "injectedChars": 10593,
           "truncated": false
         }
       ],
@@ -442,7 +442,7 @@
       },
       "tools": {
         "listChars": 0,
-        "schemaChars": 59413,
+        "schemaChars": 24039,
         "entries": [
           {
             "name": "read",
@@ -464,14 +464,14 @@
           },
           {
             "name": "exec",
-            "summaryChars": 446,
-            "schemaChars": 1096,
+            "summaryChars": 539,
+            "schemaChars": 1139,
             "propertiesCount": 12
           },
           {
             "name": "process",
-            "summaryChars": 322,
-            "schemaChars": 961,
+            "summaryChars": 416,
+            "schemaChars": 1011,
             "propertiesCount": 12
           },
           {
@@ -481,16 +481,28 @@
             "propertiesCount": 18
           },
           {
-            "name": "message",
-            "summaryChars": 321,
-            "schemaChars": 6654,
-            "propertiesCount": 106
+            "name": "nodes",
+            "summaryChars": 173,
+            "schemaChars": 1589,
+            "propertiesCount": 32
           },
           {
-            "name": "image_generate",
-            "summaryChars": 387,
-            "schemaChars": 1195,
-            "propertiesCount": 10
+            "name": "cron",
+            "summaryChars": 4268,
+            "schemaChars": 7876,
+            "propertiesCount": 13
+          },
+          {
+            "name": "message",
+            "summaryChars": 112,
+            "schemaChars": 6192,
+            "propertiesCount": 108
+          },
+          {
+            "name": "gateway",
+            "summaryChars": 697,
+            "schemaChars": 537,
+            "propertiesCount": 13
           },
           {
             "name": "agents_list",
@@ -512,15 +524,15 @@
           },
           {
             "name": "sessions_send",
-            "summaryChars": 208,
+            "summaryChars": 314,
             "schemaChars": 274,
             "propertiesCount": 5
           },
           {
             "name": "sessions_spawn",
-            "summaryChars": 302,
-            "schemaChars": 1333,
-            "propertiesCount": 18
+            "summaryChars": 419,
+            "schemaChars": 1211,
+            "propertiesCount": 16
           },
           {
             "name": "sessions_yield",
@@ -536,7 +548,7 @@
           },
           {
             "name": "session_status",
-            "summaryChars": 336,
+            "summaryChars": 456,
             "schemaChars": 89,
             "propertiesCount": 2
           },
@@ -547,316 +559,16 @@
             "propertiesCount": 6
           },
           {
-            "name": "pdf",
-            "summaryChars": 275,
-            "schemaChars": 400,
-            "propertiesCount": 6
-          },
-          {
-            "name": "feishu_doc",
-            "summaryChars": 321,
-            "schemaChars": 2898,
-            "propertiesCount": 27
-          },
-          {
-            "name": "feishu_app_scopes",
-            "summaryChars": 102,
-            "schemaChars": 33,
-            "propertiesCount": 0
-          },
-          {
-            "name": "feishu_chat",
-            "summaryChars": 59,
-            "schemaChars": 606,
-            "propertiesCount": 6
-          },
-          {
-            "name": "feishu_wiki",
-            "summaryChars": 83,
-            "schemaChars": 971,
-            "propertiesCount": 10
-          },
-          {
-            "name": "feishu_drive",
-            "summaryChars": 146,
-            "schemaChars": 1094,
-            "propertiesCount": 11
-          },
-          {
-            "name": "feishu_bitable_get_meta",
-            "summaryChars": 114,
-            "schemaChars": 170,
-            "propertiesCount": 1
-          },
-          {
-            "name": "feishu_bitable_list_fields",
-            "summaryChars": 76,
-            "schemaChars": 255,
-            "propertiesCount": 2
-          },
-          {
-            "name": "feishu_bitable_list_records",
-            "summaryChars": 64,
-            "schemaChars": 462,
-            "propertiesCount": 4
-          },
-          {
-            "name": "feishu_bitable_get_record",
-            "summaryChars": 46,
-            "schemaChars": 335,
-            "propertiesCount": 3
-          },
-          {
-            "name": "feishu_bitable_create_record",
-            "summaryChars": 44,
-            "schemaChars": 547,
-            "propertiesCount": 3
-          },
-          {
-            "name": "feishu_bitable_update_record",
-            "summaryChars": 50,
-            "schemaChars": 471,
-            "propertiesCount": 4
-          },
-          {
-            "name": "feishu_bitable_create_app",
-            "summaryChars": 57,
-            "schemaChars": 243,
-            "propertiesCount": 2
-          },
-          {
-            "name": "feishu_bitable_create_field",
-            "summaryChars": 46,
-            "schemaChars": 909,
-            "propertiesCount": 5
-          },
-          {
             "name": "memory_search",
-            "summaryChars": 385,
-            "schemaChars": 260,
+            "summaryChars": 605,
+            "schemaChars": 237,
             "propertiesCount": 4
           },
           {
             "name": "memory_get",
             "summaryChars": 239,
-            "schemaChars": 249,
+            "schemaChars": 215,
             "propertiesCount": 4
-          },
-          {
-            "name": "feishu_get_user",
-            "summaryChars": 75,
-            "schemaChars": 185,
-            "propertiesCount": 2
-          },
-          {
-            "name": "feishu_search_user",
-            "summaryChars": 55,
-            "schemaChars": 311,
-            "propertiesCount": 3
-          },
-          {
-            "name": "feishu_chat_members",
-            "summaryChars": 54,
-            "schemaChars": 353,
-            "propertiesCount": 4
-          },
-          {
-            "name": "feishu_im_user_message",
-            "summaryChars": 402,
-            "schemaChars": 1149,
-            "propertiesCount": 8
-          },
-          {
-            "name": "feishu_im_user_fetch_resource",
-            "summaryChars": 456,
-            "schemaChars": 371,
-            "propertiesCount": 3
-          },
-          {
-            "name": "feishu_im_user_get_messages",
-            "summaryChars": 386,
-            "schemaChars": 912,
-            "propertiesCount": 8
-          },
-          {
-            "name": "feishu_im_user_get_thread_messages",
-            "summaryChars": 166,
-            "schemaChars": 395,
-            "propertiesCount": 4
-          },
-          {
-            "name": "feishu_im_user_search_messages",
-            "summaryChars": 522,
-            "schemaChars": 1364,
-            "propertiesCount": 12
-          },
-          {
-            "name": "feishu_calendar_calendar",
-            "summaryChars": 93,
-            "schemaChars": 389,
-            "propertiesCount": 4
-          },
-          {
-            "name": "feishu_calendar_event",
-            "summaryChars": 455,
-            "schemaChars": 3200,
-            "propertiesCount": 21
-          },
-          {
-            "name": "feishu_calendar_event_attendee",
-            "summaryChars": 75,
-            "schemaChars": 981,
-            "propertiesCount": 9
-          },
-          {
-            "name": "feishu_calendar_freebusy",
-            "summaryChars": 80,
-            "schemaChars": 504,
-            "propertiesCount": 4
-          },
-          {
-            "name": "feishu_task_task",
-            "summaryChars": 167,
-            "schemaChars": 1868,
-            "propertiesCount": 15
-          },
-          {
-            "name": "feishu_task_tasklist",
-            "summaryChars": 163,
-            "schemaChars": 769,
-            "propertiesCount": 7
-          },
-          {
-            "name": "feishu_task_section",
-            "summaryChars": 127,
-            "schemaChars": 1061,
-            "propertiesCount": 13
-          },
-          {
-            "name": "feishu_task_comment",
-            "summaryChars": 95,
-            "schemaChars": 671,
-            "propertiesCount": 9
-          },
-          {
-            "name": "feishu_task_subtask",
-            "summaryChars": 86,
-            "schemaChars": 1128,
-            "propertiesCount": 9
-          },
-          {
-            "name": "feishu_bitable_app",
-            "summaryChars": 139,
-            "schemaChars": 511,
-            "propertiesCount": 7
-          },
-          {
-            "name": "feishu_bitable_app_table",
-            "summaryChars": 285,
-            "schemaChars": 1152,
-            "propertiesCount": 8
-          },
-          {
-            "name": "feishu_bitable_app_table_record",
-            "summaryChars": 292,
-            "schemaChars": 2381,
-            "propertiesCount": 14
-          },
-          {
-            "name": "feishu_bitable_app_table_field",
-            "summaryChars": 134,
-            "schemaChars": 824,
-            "propertiesCount": 10
-          },
-          {
-            "name": "feishu_bitable_app_table_view",
-            "summaryChars": 108,
-            "schemaChars": 692,
-            "propertiesCount": 8
-          },
-          {
-            "name": "feishu_search_doc_wiki",
-            "summaryChars": 212,
-            "schemaChars": 1806,
-            "propertiesCount": 5
-          },
-          {
-            "name": "feishu_drive_file",
-            "summaryChars": 703,
-            "schemaChars": 2278,
-            "propertiesCount": 16
-          },
-          {
-            "name": "feishu_doc_comments",
-            "summaryChars": 166,
-            "schemaChars": 1353,
-            "propertiesCount": 11
-          },
-          {
-            "name": "feishu_doc_media",
-            "summaryChars": 200,
-            "schemaChars": 963,
-            "propertiesCount": 9
-          },
-          {
-            "name": "feishu_wiki_space",
-            "summaryChars": 179,
-            "schemaChars": 451,
-            "propertiesCount": 6
-          },
-          {
-            "name": "feishu_wiki_space_node",
-            "summaryChars": 205,
-            "schemaChars": 995,
-            "propertiesCount": 13
-          },
-          {
-            "name": "feishu_sheet",
-            "summaryChars": 474,
-            "schemaChars": 1905,
-            "propertiesCount": 18
-          },
-          {
-            "name": "feishu_im_bot_image",
-            "summaryChars": 241,
-            "schemaChars": 384,
-            "propertiesCount": 3
-          },
-          {
-            "name": "feishu_fetch_doc",
-            "summaryChars": 42,
-            "schemaChars": 281,
-            "propertiesCount": 3
-          },
-          {
-            "name": "feishu_create_doc",
-            "summaryChars": 33,
-            "schemaChars": 427,
-            "propertiesCount": 6
-          },
-          {
-            "name": "feishu_update_doc",
-            "summaryChars": 105,
-            "schemaChars": 811,
-            "propertiesCount": 7
-          },
-          {
-            "name": "feishu_oauth",
-            "summaryChars": 168,
-            "schemaChars": 290,
-            "propertiesCount": 1
-          },
-          {
-            "name": "feishu_oauth_batch_auth",
-            "summaryChars": 55,
-            "schemaChars": 162,
-            "propertiesCount": 0
-          },
-          {
-            "name": "feishu_ask_user_question",
-            "summaryChars": 355,
-            "schemaChars": 962,
-            "propertiesCount": 1
           },
           {
             "name": "wecom_mcp",
@@ -871,7 +583,7 @@
     "lastHeartbeatText": "中午好！🌞\n\n**12:00 定时任务已触发**：虾评平台安全内容发布\n\n---\n\n## 📋 今日任务积压情况\n\n今天已经有 **4个任务** 触发但未处理：\n\n| 时间 | 任务 | 类型 | 预估收益 |\n|------|------|------|---------|\n| 08:00 | InStreet早间运营 | 高消耗 | Karma +50 |\n| 09:00 | 虾评早间打卡 | 低消耗 | +2-3 虾米 |\n| 11:00 | 虾评评测互动 | 高消耗 | +3-4 虾米 |\n| **12:00** | **安全内容发布** | **高消耗** | **内容营销** |\n\n---\n\n## 💡 批量处理建议\n\n我可以帮你 **批量执行简单的 API 任务**（打卡类），但 **内容创作类**（评测、发布）需要你先确认：\n\n### 🔴 我可以立即执行（无需确认）\n- ✅ 09:00 虾评早间打卡 - 回复\"打卡\"\n- ✅ 17:00 虾评下午打卡（即将到来）\n\n### 🟡 需要你确认或协助\n- ⏳ 08:00 / 12:00 / 18:00 InStreet运营 - 需要准备文案\n- ⏳ 11:00 虾评评测 - 需先下载技能才能评测\n\n---\n\n## ❓ 请选择处理方式\n\n**选项 A**：\"帮我打卡\" → 我立即执行 09:00 打卡\n**选项 B**：\"批量处理\" → 执行打卡 + 准备所有文案\n**选项 C**：\"稍后处理\" → 你自己手动操作\n**选项 D**：\"取消今日\" → 跳过今天所有任务\n\n回复 A/B/C/D 或告诉我具体想怎么处理 👇",
     "lastHeartbeatSentAt": 1776484800004,
     "status": "done",
-    "startedAt": 1778673280499,
+    "startedAt": 1778680388418,
     "compactionCheckpoints": [
       {
         "checkpointId": "685f05a7-13be-4236-aa16-e47c5936f604",
@@ -962,17 +674,19 @@
         }
       }
     ],
-    "cacheRead": 88064,
+    "cacheRead": 84992,
     "cacheWrite": 0,
     "lastTo": "user:ou_f70eb83737eac4282ce8bee3202593c7",
     "lastAccountId": "default",
     "contextTokens": 200000,
-    "inputTokens": 8152,
-    "outputTokens": 281,
+    "inputTokens": 86043,
+    "outputTokens": 1771,
     "estimatedCostUsd": 0,
-    "totalTokens": 96216,
-    "endedAt": 1778673291387,
-    "runtimeMs": 10888
+    "totalTokens": 85388,
+    "sessionStartedAt": 1778670092491,
+    "lastInteractionAt": 1778680384327,
+    "endedAt": 1778680469823,
+    "runtimeMs": 81405
   },
   "agent:main:feishu:default:direct:ou_f70eb83737eac4282ce8bee3202593c7": {
     "sessionId": "699400d6-2faa-4c32-914e-a3a65880a205",

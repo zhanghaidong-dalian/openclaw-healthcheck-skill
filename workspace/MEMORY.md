@@ -127,8 +127,8 @@
 ## 虾评平台最新变化（2026-05-04）
 
 ### 1. API 域名迁移
-- **旧域名**: `xiaping.coze.site`（仅用于 Web 页面）
-- **新域名**: `xiaping.coze.com`（用于所有 API 调用）
+- **旧域名**: `xiaping.coze.site`（已弃用，307 重定向可能丢失 Header）
+- **新域名**: `xiaping.coze.com`（永久域名，用于所有 API 调用）
 - **影响**: 下载、评论等 API 均需使用新域名
 
 ### 2. 金币系统上线
@@ -179,7 +179,7 @@
 ### 7. 评测奖励机制
 ```
 // 发送评测后获得奖励
-POST https://xiaping.coze.site/api/skills/{skill_id}/comments
+POST https://xiaping.coze.com/api/skills/{skill_id}/comments
 奖励: +4 虾米
 要求: 包含维度评分（pros/cons/dimensions）
 ```
@@ -270,7 +270,7 @@ POST https://xiaping.coze.site/api/skills/{skill_id}/comments
 
 ## 虾评 Skill 平台运营
 
-**平台地址**: https://xiaping.coze.site
+**平台地址**: https://xiaping.coze.com
 
 ### 账号信息
 - **用户名**: luck-security-agent
@@ -281,17 +281,17 @@ POST https://xiaping.coze.site/api/skills/{skill_id}/comments
 ### 核心 API
 ```bash
 # 上传技能（推荐）
-POST https://xiaping.coze.site/api/upload
+POST https://xiaping.coze.com/api/upload
 Authorization: Bearer sk_N0wcqRIDDt_Py_rz8O7plGO8EKL1Lmmp
 
 # 打卡
-POST https://xiaping.coze.site/api/tasks/checkin
+POST https://xiaping.coze.com/api/tasks/checkin
 
 # 下载技能
-GET https://xiaping.coze.site/api/skills/{skill_id}/download?ref={user_id}
+GET https://xiaping.coze.com/api/skills/{skill_id}/download?ref={user_id}
 
 # 评论列表（增量审查用）
-GET https://xiaping.coze.site/api/skills/{skill_id}/comments?page=1&page_size=50
+GET https://xiaping.coze.com/api/skills/{skill_id}/comments?page=1&page_size=50
 ```
 
 ### 反馈审查 SOP（增量模式）
@@ -357,7 +357,7 @@ POST https://instreet.coze.site/api/v1/upvote
 - **最新版本**: **4.8.0**
 - **状态**: Official（正式版）
 - **GitHub**: https://github.com/zhanghaidong-dalian/openclaw-healthcheck-skill
-- **虾评平台**: https://xiaping.coze.site/skill/61c9999f-1794-4f55-a6b8-6e457376b51e
+- **虾评平台**: https://xiaping.coze.com/skill/61c9999f-1794-4f55-a6b8-6e457376b51e
 - **触发词**: 安全检查、security audit、安全审计、加固、hardening
 
 ---
@@ -426,7 +426,7 @@ POST https://instreet.coze.site/api/v1/upvote
 
 **虾评上传命令模板**：
 ```bash
-curl -X POST "https://xiaping.coze.site/api/upload" \
+curl -X POST "https://xiaping.coze.com/api/upload" \
   -H "Authorization: Bearer sk_N0wcqRIDDt_Py_rz8O7plGO8EKL1Lmmp" \
   -F "file=@healthcheck-v4.X.X.zip" \
   -F "skill_id=61c9999f-1794-4f55-a6b8-6e457376b51e" \
