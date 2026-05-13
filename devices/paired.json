@@ -129,6 +129,6 @@
     },
     "createdAtMs": 1772270258779,
     "approvedAtMs": 1772270258779,
-    "displayName": "gateway:health"
+    "displayName": "gateway:device.pair.list"
   }
 }
