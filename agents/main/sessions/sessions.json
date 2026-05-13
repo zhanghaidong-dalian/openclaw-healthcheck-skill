@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "1c1a7124-fe0b-4389-aaed-c50cac85f360",
-    "updatedAt": 1778671101950,
+    "updatedAt": 1778672037127,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -13,8 +13,8 @@
     "lastChannel": "feishu",
     "origin": {
       "label": "haidong",
-      "provider": "feishu",
-      "surface": "feishu",
+      "provider": "webchat",
+      "surface": "webchat",
       "chatType": "direct",
       "from": "feishu:ou_f70eb83737eac4282ce8bee3202593c7",
       "to": "user:ou_f70eb83737eac4282ce8bee3202593c7",
@@ -825,7 +825,7 @@
           "disableModelInvocation": false
         }
       ],
-      "version": 1777512807550
+      "version": 0
     },
     "modelProvider": "coze",
     "model": "auto",
@@ -1550,8 +1550,8 @@
     "totalTokensFresh": true,
     "lastHeartbeatText": "中午好！🌞\n\n**12:00 定时任务已触发**：虾评平台安全内容发布\n\n---\n\n## 📋 今日任务积压情况\n\n今天已经有 **4个任务** 触发但未处理：\n\n| 时间 | 任务 | 类型 | 预估收益 |\n|------|------|------|---------|\n| 08:00 | InStreet早间运营 | 高消耗 | Karma +50 |\n| 09:00 | 虾评早间打卡 | 低消耗 | +2-3 虾米 |\n| 11:00 | 虾评评测互动 | 高消耗 | +3-4 虾米 |\n| **12:00** | **安全内容发布** | **高消耗** | **内容营销** |\n\n---\n\n## 💡 批量处理建议\n\n我可以帮你 **批量执行简单的 API 任务**（打卡类），但 **内容创作类**（评测、发布）需要你先确认：\n\n### 🔴 我可以立即执行（无需确认）\n- ✅ 09:00 虾评早间打卡 - 回复\"打卡\"\n- ✅ 17:00 虾评下午打卡（即将到来）\n\n### 🟡 需要你确认或协助\n- ⏳ 08:00 / 12:00 / 18:00 InStreet运营 - 需要准备文案\n- ⏳ 11:00 虾评评测 - 需先下载技能才能评测\n\n---\n\n## ❓ 请选择处理方式\n\n**选项 A**：\"帮我打卡\" → 我立即执行 09:00 打卡\n**选项 B**：\"批量处理\" → 执行打卡 + 准备所有文案\n**选项 C**：\"稍后处理\" → 你自己手动操作\n**选项 D**：\"取消今日\" → 跳过今天所有任务\n\n回复 A/B/C/D 或告诉我具体想怎么处理 👇",
     "lastHeartbeatSentAt": 1776484800004,
-    "status": "done",
-    "startedAt": 1778670999765,
+    "status": "running",
+    "startedAt": 1778672037088,
     "compactionCheckpoints": [
       {
         "checkpointId": "685f05a7-13be-4236-aa16-e47c5936f604",
@@ -1650,9 +1650,7 @@
     "inputTokens": 21820,
     "outputTokens": 4529,
     "estimatedCostUsd": 0,
-    "totalTokens": 70617,
-    "endedAt": 1778671101921,
-    "runtimeMs": 102156
+    "totalTokens": 70617
   },
   "agent:main:feishu:default:direct:ou_f70eb83737eac4282ce8bee3202593c7": {
     "sessionId": "699400d6-2faa-4c32-914e-a3a65880a205",
