@@ -1,0 +1,26 @@
+---
+# 开放端口审计
+id: network-001
+name: 开放端口审计
+category: network_security
+severity: low
+description: 检查系统开放的端口数量
+
+check:
+  type: command
+  command: ss -tuln | grep LISTEN | wc -l
+
+expected: '0-10'
+
+remediation:
+  script: N/A
+  command: echo "端口审计需要手动检查"
+  restart_required: false
+
+risk_assessment:
+  if_violated: 开放端口过多，增加攻击面
+  if_fixed: 开放端口数量合理
+
+metadata:
+  compliance: []
+  tags: ["network", "audit", "security"]

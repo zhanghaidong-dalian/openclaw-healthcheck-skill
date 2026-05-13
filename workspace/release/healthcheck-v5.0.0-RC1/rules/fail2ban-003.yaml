@@ -1,0 +1,27 @@
+---
+# fail2ban 规则配置检查
+id: fail2ban-003
+name: fail2ban 规则配置检查
+category: fail2ban_security
+severity: low
+description: 检查 fail2ban 是否有配置规则
+
+check:
+  type: command
+  command: test -f /etc/fail2ban/jail.local && echo "has_rules" || echo "no_rules"
+
+expected: has_rules
+
+remediation:
+  script: fail2ban-integrate.sh
+  command: cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+  restart_required: true
+  service: fail2ban
+
+risk_assessment:
+  if_violated: fail2ban 未配置规则，无法有效防御
+  if_fixed: fail2ban 规则已配置
+
+metadata:
+  compliance: []
+  tags: ["fail2ban", "intrusion", "security"]

@@ -1,0 +1,28 @@
+---
+# 系统更新状态检查
+id: system-001
+name: 系统更新状态检查
+category: system_updates
+severity: high
+description: 检查系统是否有待安装的安全更新
+
+check:
+  type: command
+  command: 'apt list --upgradable 2>/dev/null | grep -i security || echo "no security updates"'
+
+expected: 'no security updates'
+
+remediation:
+  script: fix-auto-updates.sh
+  command: 'apt update && apt upgrade -y'
+  restart_required: false
+  service: none
+
+risk_assessment:
+  if_violated: "存在未安装的安全更新，系统存在已知漏洞"
+  if_fixed: "系统已更新到最新安全补丁"
+
+metadata:
+  cve_references: []
+  compliance: ['CIS_Benchmark']
+  tags: ['system', 'updates', 'security']

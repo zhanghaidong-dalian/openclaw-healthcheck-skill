@@ -1,0 +1,28 @@
+---
+# 防火墙端口规则检查
+id: firewall-002
+name: 防火墙端口规则检查
+category: firewall_hardening
+severity: medium
+description: 检查防火墙端口规则配置
+
+check:
+  type: command
+  command: 'command -v ufw >/dev/null 2>&1 && ufw status numbered | grep -c "ALLOW"'
+
+expected: '> 0'
+
+remediation:
+  script: fix-firewall-defaults.sh
+  command: 'ufw allow 22/tcp && ufw allow 80/tcp && ufw allow 443/tcp'
+  restart_required: false
+  service: ufw
+
+risk_assessment:
+  if_violated: "防火墙未配置端口规则"
+  if_fixed: "防火墙端口规则已配置"
+
+metadata:
+  cve_references: []
+  compliance: ['CIS_Benchmark']
+  tags: ['firewall', 'network', 'security']

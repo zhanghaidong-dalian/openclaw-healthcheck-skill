@@ -1,0 +1,28 @@
+{
+  "name": "security-auditor-pro",
+  "version": "1.0.0",
+  "description": "OpenClaw安全审计助手 - 帮助用户检测第三方技能的安全性",
+  "main": "bin/cli.js",
+  "bin": {
+    "security-auditor": "bin/cli.js"
+  },
+  "scripts": {
+    "start": "node bin/cli.js",
+    "audit": "node bin/cli.js audit",
+    "report": "node bin/cli.js report",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "openclaw",
+    "security",
+    "audit",
+    "skill",
+    "safety"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,1 @@
+{"ts":1775642746313,"jobId":"edff1451-137f-4652-bc9d-7e0cc4c29843","action":"finished","status":"error","error":"TypeError: (0 , _pluginSdk.normalizeAccountId) is not a function","deliveryStatus":"not-requested","runAtMs":1775642746301,"durationMs":5,"nextRunAtMs":1775728800000}

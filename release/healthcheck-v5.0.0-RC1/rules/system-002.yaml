@@ -1,0 +1,28 @@
+---
+# 自动更新配置检查
+id: system-002
+name: 自动更新配置检查
+category: system_updates
+severity: medium
+description: 检查系统是否配置了自动更新
+
+check:
+  type: command
+  command: 'systemctl is-enabled unattended-upgrades | grep -q "enabled"'
+
+expected: 'enabled'
+
+remediation:
+  script: fix-auto-updates.sh
+  command: 'systemctl enable unattended-upgrades'
+  restart_required: false
+  service: none
+
+risk_assessment:
+  if_violated: "自动更新未启用，系统可能有未安装的安全补丁"
+  if_fixed: "自动更新已启用，系统将自动安装安全补丁"
+
+metadata:
+  cve_references: []
+  compliance: ['CIS_Benchmark']
+  tags: ['system', 'updates', 'security']

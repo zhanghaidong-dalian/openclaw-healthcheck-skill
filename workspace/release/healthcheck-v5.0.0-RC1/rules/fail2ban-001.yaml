@@ -1,0 +1,28 @@
+---
+# fail2ban 安装状态检查
+id: fail2ban-001
+name: fail2ban 安装状态检查
+category: fail2ban_security
+severity: medium
+description: 检查 fail2ban 是否已安装
+
+check:
+  type: command
+  command: 'command -v fail2ban-client >/dev/null 2>&1 && echo "installed" || echo "not_installed"'
+
+expected: 'installed'
+
+remediation:
+  script: fail2ban-integrate.sh
+  command: 'apt install -y fail2ban'
+  restart_required: false
+  service: none
+
+risk_assessment:
+  if_violated: "fail2ban 未安装，无法防止暴力破解攻击"
+  if_fixed: "fail2ban 已安装，可以防止暴力破解攻击"
+
+metadata:
+  cve_references: []
+  compliance: ['CIS_Benchmark']
+  tags: ['fail2ban', 'intrusion', 'security']

@@ -1,0 +1,28 @@
+---
+# 日志文件权限检查
+id: logging-001
+name: 日志文件权限检查
+category: logging_security
+severity: medium
+description: 检查关键日志文件的权限
+
+check:
+  type: command
+  command: 'stat -c "%a" /var/log/auth.log | grep -E "640|600"'
+
+expected: '640|600'
+
+remediation:
+  script: fix-logging-perms.sh
+  command: 'chmod 640 /var/log/auth.log && chmod 600 /var/log/secure'
+  restart_required: false
+  service: none
+
+risk_assessment:
+  if_violated: "日志文件权限过宽，可能泄露敏感信息"
+  if_fixed: "日志文件权限已正确设置"
+
+metadata:
+  cve_references: []
+  compliance: ['CIS_Benchmark']
+  tags: ['logging', 'permissions', 'security']

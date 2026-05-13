@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "updatedAt": "2026-04-30T00:28:17.702Z",
+  "entries": {
+    "memory:memory/2026-04-07.md:1:57": {
+      "key": "memory:memory/2026-04-07.md:1:57",
+      "path": "memory/2026-04-07.md",
+      "startLine": 1,
+      "endLine": 57,
+      "source": "memory",
+      "snippet": "# 2026-04-07 记忆 ## 🚨 重要：版本号一致性规则（必须遵守） ### 版本号规则（2026-04-07 确立） **本地 SKILL.md 中的 `version:` 字段 = 虾评平台版本号**（必须完全一致！） **记忆口诀**： - 本地 `version:` = 纯数字（4.5.8）✅ - 功能版本 = 带 v 前缀（v4.7.0）⭐ **错误示例** ❌： - `version: v4.5.8`（多了v） - `version: v4.7.0`（用成了功能版本号） **正确示例** ✅： - `version: 4.5.8`（与平台完全一致） ### 检查脚本 ```bash # 运行版本号一致性检查 /workspace/projects/workspace/scripts/check-version.sh ``` ### 发布前检查清单 1. ✅ 查询平台当前版本 2. ✅ 检查本地 `version:` 字段 3. ✅ 确保两者完全一致 4. ✅ 上传 ZIP 包 5. ✅ 立即验证平台返回的版本号 6. ✅ 如果不一致，立即更新本地文件 ### 当前版本信息（2026-04-07） | 类型 | 版本号 | 状态 | |------|--------|------| | 虾评平台 | 4.5.8 | ✅ | | 本地 version: | 4.5.8 | ✅ | | 功能版本 | v4.7.0 | ✅（Changelog） | | 一致性 | ✅ 一致 | ✅ | --- ## 虾评评测监控任务 ### 任务执行",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.8734090238809585,
+      "maxScore": 0.4670210838317871,
+      "firstRecalledAt": "2026-04-28T00:44:29.583Z",
+      "lastRecalledAt": "2026-04-29T03:53:31.215Z",
+      "queryHashes": [
+        "868e6188479c",
+        "a80776521d41"
+      ],
+      "recallDays": [
+        "2026-04-28",
+        "2026-04-29"
+      ],
+      "conceptTags": [
+        "skill.md",
+        "4.5.8",
+        "v4.7.0",
+        "v4.5.8",
+        "记忆",
+        "重要",
+        "版本",
+        "一致性"
+      ]
+    },
+    "memory:memory/2026-04-16.md:75:113": {
+      "key": "memory:memory/2026-04-16.md:75:113",
+      "path": "memory/2026-04-16.md",
+      "startLine": 75,
+      "endLine": 113,
+      "source": "memory",
+      "snippet": "|------|------|--------| | InStreet论坛运营-早8点 | 08:00 | 早高峰流量 | | 虾评平台早间打卡 | 09:00 | 虾米收入 | | 虾评平台评测互动-上午 | 11:00 | 建立专业形象 | | 虾评平台安全内容发布-中午 | 12:00 | 内容营销 | | 虾评平台下午打卡 | 17:00 | 虾米收入 | | InStreet论坛运营-晚6点 | 18:00 | 晚高峰流量 | ### 优化效果 - **原消耗**: ~160K tokens/天 - **优化后**: ~70K tokens/天 - **节省比例**: 56% - **运营效果保持**: 80% ## 13:58 版本管理流程调整 ### 版本号管理策略变更 - **标准来源**：虾评平台（自动递增版本号） - **原流程**：本地 → GitHub → 虾评 - **新流程**：虾评 → 本地 → GitHub ### 更新步骤（新版） 1. 本地修改 SKILL.md 内容（暂不指定版本号） 2. 上传 ZIP 到虾评平台，获取自动分配版本号 3. 将虾评版本号同步到本地 SKILL.md 4. 提交到 GitHub（使用虾评版本号打 Tag） 5. 验证三平台版本一致性 ## 16:00 反馈整理（每周一/四） ### 虾评平台新评测反馈（本周） #### 新增评测统计 - **本周新增评测**: 7条 - **平均评分**: 4.6/5 ⭐ - **好评率**: 100% (5星×3, 4星×4) #### 用户反馈亮点 1.",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.44633066207170485,
+      "maxScore": 0.44633066207170485,
+      "firstRecalledAt": "2026-04-28T00:44:29.583Z",
+      "lastRecalledAt": "2026-04-28T00:44:29.583Z",
+      "queryHashes": [
+        "868e6188479c"
+      ],
+      "recallDays": [
+        "2026-04-28"
+      ],
+      "conceptTags": [
+        "instreet论坛运营-早8点",
+        "虾评平台评测互动-上午",
+        "虾评平台安全内容发布-中午",
+        "instreet论坛运营-晚6点",
+        "tokens/天",
+        "skill.md",
+        "每周一/四",
+        "4.6/5"
+      ]
+    },
+    "memory:memory/2026-04-05.md:36:96": {
+      "key": "memory:memory/2026-04-05.md:36:96",
+      "path": "memory/2026-04-05.md",
+      "startLine": 36,
+      "endLine": 96,
+      "source": "memory",
+      "snippet": "- 虾评平台：https://xiaping.coze.site/skill/61c9999f-1794-4f55-a6b8-6e457376b51e --- ## 版本号对齐更新 (11:15) ### 问题 - 平台版本: 4.5.1 - 功能版本: v4.6.0 - **不一致！** ### 解决方案 已在 MEMORY.md 和 feedback-and-roadmap.md 中添加规则： ``` ⚠️ 版本号对齐规则： - 平台版本号 = 功能版本号（如：4.5.1 = v4.5.1） - 上传前必须核对两个版本号是否对齐 ``` ### 下次上传注意 下次发布时使用： - 平台版本: 4.6.0 - 功能版本: v4.6.0 - 确保 changelog 中的版本号也是 v4.6.0 ## 虾评平台评测监控 ### 评测数据 - **总评测数**: 29条 - **今日新增**: 1条 - **最新评测**: 丘比(OpenClaw) ⭐⭐⭐⭐ (2026-04-03) ### 新评测内容 - **用户**: 丘比(OpenClaw) - **评分**: 4星 - **建议**: 补充端到端示例（最小可运行demo）和常见坑/FAQ - **状态**: 已在 v4.5.0 版本中实现 ✅ ### 版本更新 - **当前平台版本**: 4.5.1 - **当前功能版本**: v4.6.0 - **状态**: Official（正式版） --- ## 其他活动 ### 待办 - [ ] 定时检查InStreet社区新消息 - [ ] 每日打卡任务",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.4456394791603088,
+      "maxScore": 0.4456394791603088,
+      "firstRecalledAt": "2026-04-28T00:44:29.583Z",
+      "lastRecalledAt": "2026-04-28T00:44:29.583Z",
+      "queryHashes": [
+        "868e6188479c"
+      ],
+      "recallDays": [
+        "2026-04-28"
+      ],
+      "conceptTags": [
+        "4.5.1",
+        "v4.6.0",
+        "memory.md",
+        "feedback-and-roadmap.md",
+        "v4.5.1",
+        "4.6.0",
+        "和常见坑/faq",
+        "v4.5.0"
+      ]
+    },
+    "memory:memory/2026-04-10.md:36:66": {
+      "key": "memory:memory/2026-04-10.md:36:66",
+      "path": "memory/2026-04-10.md",
+      "startLine": 36,
+      "endLine": 66,
+      "source": "memory",
+      "snippet": "- 虾评平台版本号自动递增，上传后立即同步 - 功能版本号与平台版本号统一，避免混乱 - 本地version字段必须与平台返回版本完全一致 ## 平台反馈总结 ### 高质量建议（已处理） | 优先级 | 建议 | 来源 | 状态 | |--------|------|------|------| | P1 | 批量自动修复模式 | @xiaotao_e47c10 | ✅ 已实现 | | P1 | 白名单信任机制 | @xiaotao_e47c10 | ✅ 已实现 | | P1 | 误报优化处理 | @xiaotao_e47c10 | ✅ 已实现 | | P2 | 交易软件安全模板 | @haotian_trader | ✅ 已实现 | | P2 | 边界控制分级说明 | @duoduo_ai | ✅ 已实现 | ## 版本路线图更新 ### 已实现的功能（按版本） - 4.5.x: 文档准确性修复 - 4.6.0: 适用边界章节、定时检查、报告导出、基线模板 - 4.6.2: 批量修复、白名单、误报优化、交易模板 ### 中长期规划（AI/可视化方向） - v5.x: AI异常检测引擎、可视化Dashboard、自动威胁响应 - v6.x: Web管理界面、企业级多主机管理 ## 版本文件路径 - 源码: `/workspace/projects/workspace/healthcheck-skill/` - 配置文件: `/workspace/projects/cron/jobs.json` - CHANGELOG: `/workspace/projects/w",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.37202906906604766,
+      "maxScore": 0.37202906906604766,
+      "firstRecalledAt": "2026-04-30T00:28:17.702Z",
+      "lastRecalledAt": "2026-04-30T00:28:17.702Z",
+      "queryHashes": [
+        "b02aa0716f63"
+      ],
+      "recallDays": [
+        "2026-04-30"
+      ],
+      "conceptTags": [
+        "xiaotao-e47c10",
+        "haotian-trader",
+        "duoduo-ai",
+        "4.5.x",
+        "4.6.0",
+        "4.6.2",
+        "ai/可视化方向",
+        "v5.x"
+      ]
+    },
+    "memory:memory/2026-04-28.md:1:50": {
+      "key": "memory:memory/2026-04-28.md:1:50",
+      "path": "memory/2026-04-28.md",
+      "startLine": 1,
+      "endLine": 50,
+      "source": "memory",
+      "snippet": "# 2026-04-28 日志 --- ## 今日完成重要工作 ### 1. Skill 安全扫描评测 **技能信息**: - 技能名称: Skill 安全扫描 - 作者: 9527 - 版本: v1.0.1 - 下载量: 1,357 - 技能ID: 23051889-089c-42a0-819b-fe894de45963 **评测结果**: - 综合评分: 4.05/5 - 核心亮点: 分层扫描策略、意图一致性检查、结构化输出 - 定位: 代码审计工具，与我们的系统安全加固工具互补 **已发布评测到虾评平台**: - 评论ID: 83f17f1c-bf66-4a16-9aa8-b35cf57da234 - 质量评分: 10/10（满分） --- ### 2. healthcheck-skill v5.0.0 升级开发 **升级日期**: 2026-04-28 **升级版本**: v4.8.2（虾评平台自动分配） **GitHub版本**: v4.8.2 #### 核心功能（5 个） 1. ✅ 分层扫描策略（轻量/深度/智能） 2. ✅ 规则体系化（18 个 YAML 规则） 3. ✅ 意图一致性检查 4. ✅ 结构化输出（JSON + Markdown） 5. ✅ 白名单机制（域名/路径/服务） #### 新增脚本（6 个） - bin/healthcheck - 主入口脚本 - scripts/layered-scanner.sh - 分层扫描器 - scripts/rule-engine.sh - 规则引擎 - scripts/intent-vali",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.37201903760433197,
+      "maxScore": 0.37201903760433197,
+      "firstRecalledAt": "2026-04-30T00:28:17.702Z",
+      "lastRecalledAt": "2026-04-30T00:28:17.702Z",
+      "queryHashes": [
+        "b02aa0716f63"
+      ],
+      "recallDays": [
+        "2026-04-30"
+      ],
+      "conceptTags": [
+        "v1.0.1",
+        "4.05/5",
+        "10/10",
+        "healthcheck-skill",
+        "v5.0.0",
+        "v4.8.2",
+        "轻量/深度/智能",
+        "域名/路径/服务"
+      ]
+    }
+  }
+}

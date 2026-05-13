@@ -1,0 +1,33 @@
+{
+  "enabled": true,
+  "autoScan": true,
+  "riskThreshold": 70,
+  "notifications": {
+    "feishu": {
+      "enabled": false,
+      "webhook": ""
+    },
+    "wecom": {
+      "enabled": false,
+      "webhook": ""
+    },
+    "email": {
+      "enabled": false,
+      "smtp": "",
+      "to": ""
+    },
+    "slack": {
+      "enabled": false,
+      "webhook": ""
+    }
+  },
+  "enterprise": {
+    "enabled": false,
+    "apiKey": ""
+  },
+  "scanOptions": {
+    "includeHidden": false,
+    "maxFileSize": 5242880,
+    "excludeDirs": ["node_modules", ".git", "tests"]
+  }
+}

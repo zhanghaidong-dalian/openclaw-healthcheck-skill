@@ -1,0 +1,29 @@
+---
+# SSH 禁止 root 登录检查
+id: ssh-002
+name: SSH 禁止 root 登录检查
+category: ssh_hardening
+severity: high
+description: 检查 SSH 是否允许 root 登录
+
+check:
+  type: config_file
+  file: /etc/ssh/sshd_config
+  regex: '^PermitRootLogin\s+(yes|no|prohibit-password)'
+
+expected: 'no'
+
+remediation:
+  script: fix-ssh-hardening.sh
+  command: 'sed -i "s/^PermitRootLogin.*/PermitRootLogin no/" /etc/ssh/sshd_config'
+  restart_required: true
+  service: sshd
+
+risk_assessment:
+  if_violated: "Root 登录增加被攻击风险"
+  if_fixed: "Root 账号得到保护"
+
+metadata:
+  cve_references: []
+  compliance: ['CIS_Benchmark']
+  tags: ['ssh', 'root', 'security']

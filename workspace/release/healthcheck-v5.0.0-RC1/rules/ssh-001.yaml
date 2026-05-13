@@ -1,0 +1,29 @@
+---
+# SSH 密码认证禁用检查
+id: ssh-001
+name: SSH 密码认证禁用检查
+category: ssh_hardening
+severity: high
+description: 检查 SSH 是否启用了密码认证（应使用密钥认证）
+
+check:
+  type: config_file
+  file: /etc/ssh/sshd_config
+  regex: '^PasswordAuthentication\s+(yes|no)'
+
+expected: 'no'
+
+remediation:
+  script: fix-ssh-hardening.sh
+  command: 'sed -i "s/PasswordAuthentication yes/PasswordAuthentication no/" /etc/ssh/sshd_config'
+  restart_required: true
+  service: sshd
+
+risk_assessment:
+  if_violated: "密码认证易受暴力破解攻击"
+  if_fixed: "SSH 登录安全性大幅提升"
+
+metadata:
+  cve_references: []
+  compliance: ['CIS_Benchmark', 'PCI_DSS']
+  tags: ['ssh', 'authentication', 'security']

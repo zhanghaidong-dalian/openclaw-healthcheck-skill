@@ -1,0 +1,28 @@
+---
+# OpenClaw 文件权限检查
+id: openclaw-001
+name: OpenClaw 文件权限检查
+category: openclaw_security
+severity: high
+description: 检查 OpenClaw 目录和文件的权限
+
+check:
+  type: command
+  command: 'ls -ld ~/.openclaw 2>/dev/null | grep -v "^drwx------" || echo "permissions ok"'
+
+expected: 'permissions ok'
+
+remediation:
+  script: fix-openclaw-perms.sh
+  command: 'chmod -R 700 ~/.openclaw'
+  restart_required: false
+  service: none
+
+risk_assessment:
+  if_violated: "OpenClaw 文件权限过宽，可能泄露敏感信息"
+  if_fixed: "OpenClaw 文件权限已正确设置"
+
+metadata:
+  cve_references: []
+  compliance: []
+  tags: ['openclaw', 'permissions', 'security']

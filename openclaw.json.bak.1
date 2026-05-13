@@ -1,0 +1,477 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.4.8",
+    "lastTouchedAt": "2026-04-21T14:27:02.729Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-04-06T02:35:36.617Z",
+    "lastRunVersion": "2026.3.13",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "update": {
+    "checkOnStart": false
+  },
+  "browser": {
+    "enabled": false,
+    "extraArgs": [
+      "--window-size=1920,1080",
+      "--test-type"
+    ]
+  },
+  "models": {
+    "providers": {
+      "coze": {
+        "baseUrl": "${COZE_INTEGRATION_MODEL_BASE_URL}",
+        "apiKey": "${COZE_WORKLOAD_IDENTITY_API_KEY}",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "auto",
+            "name": "自动",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "kimi-k2-5-260127",
+            "name": "Kimi K2.5",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 256000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "glm-4-7-251222",
+            "name": "GLM 4.7",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "deepseek-v3-2-251201",
+            "name": "DeepSeek 3.2",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "doubao-seed-1-8-251228",
+            "name": "豆包 1.8",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 256000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "doubao-seed-2-0-pro-260215",
+            "name": "豆包 2.0 Pro",
+            "api": "openai-completions",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 256000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "doubao-seed-2-0-lite-260215",
+            "name": "豆包 2.0 Lite",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 256000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "doubao-seed-2-0-mini-260215",
+            "name": "豆包 2.0 Mini",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 256000,
+            "maxTokens": 8192
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "coze/glm-4-7-251222"
+      },
+      "imageModel": {
+        "primary": "coze/doubao-seed-1-8-251228"
+      },
+      "workspace": "/workspace/projects/workspace",
+      "memorySearch": {
+        "provider": "openai",
+        "remote": {
+          "baseUrl": "${COZE_INTEGRATION_MODEL_BASE_URL}",
+          "apiKey": "${COZE_WORKLOAD_IDENTITY_API_KEY}"
+        },
+        "fallback": "none",
+        "model": "doubao-embedding-vision-251215",
+        "query": {
+          "hybrid": {
+            "vectorWeight": 0.85,
+            "textWeight": 0.15
+          }
+        }
+      },
+      "compaction": {
+        "mode": "default"
+      },
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      },
+      "imageGenerationModel": {
+        "primary": "google/gemini-3-pro-image-preview"
+      }
+    }
+  },
+  "tools": {
+    "alsoAllow": [
+      "wecom_mcp"
+    ],
+    "deny": [
+      "tts",
+      "browser"
+    ],
+    "web": {
+      "search": {
+        "enabled": false
+      },
+      "fetch": {
+        "enabled": false
+      }
+    },
+    "elevated": {}
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "channels": {
+    "feishu": {
+      "allowFrom": [
+        "ou_f70eb83737eac4282ce8bee3202593c7"
+      ],
+      "appId": "cli_a949703e02385cce",
+      "appSecret": "DQurrbSaOxzcmUnYJkFi3fC5q8RRjRzn",
+      "connectionMode": "websocket",
+      "dmPolicy": "allowlist",
+      "domain": "feishu",
+      "enabled": true,
+      "groupAllowFrom": [],
+      "groupPolicy": "allowlist",
+      "requireMention": true,
+      "streaming": true
+    }
+  },
+  "gateway": {
+    "port": 5000,
+    "mode": "local",
+    "bind": "loopback",
+    "controlUi": {
+      "enabled": true,
+      "allowedOrigins": [
+        "https://dev.coze.site"
+      ],
+      "dangerouslyDisableDeviceAuth": true
+    },
+    "auth": {
+      "mode": "token",
+      "token": "aa29df6a-182f-41b9-ad37-75a57cf4d0a4"
+    },
+    "trustedProxies": [
+      "::1",
+      "127.0.0.1"
+    ],
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "nodes": {
+      "browser": {
+        "mode": "off"
+      }
+    }
+  },
+  "skills": {
+    "install": {
+      "nodeManager": "npm"
+    },
+    "entries": {
+      "1password": {
+        "enabled": false
+      },
+      "apple-notes": {
+        "enabled": false
+      },
+      "apple-reminders": {
+        "enabled": false
+      },
+      "bear-notes": {
+        "enabled": false
+      },
+      "bird": {
+        "enabled": false
+      },
+      "blogwatcher": {
+        "enabled": false
+      },
+      "blucli": {
+        "enabled": false
+      },
+      "bluebubbles": {
+        "enabled": false
+      },
+      "camsnap": {
+        "enabled": false
+      },
+      "clawhub": {
+        "enabled": false
+      },
+      "eightctl": {
+        "enabled": false
+      },
+      "gemini": {
+        "enabled": false
+      },
+      "gifgrep": {
+        "enabled": false
+      },
+      "gog": {
+        "enabled": false
+      },
+      "goplaces": {
+        "enabled": false
+      },
+      "local-places": {
+        "enabled": false
+      },
+      "nano-pdf": {
+        "enabled": false
+      },
+      "notion": {
+        "enabled": false
+      },
+      "obsidian": {
+        "enabled": false
+      },
+      "openai-image-gen": {
+        "enabled": false
+      },
+      "openai-whisper": {
+        "enabled": false
+      },
+      "openai-whisper-api": {
+        "enabled": false
+      },
+      "slack": {
+        "enabled": false
+      },
+      "songsee": {
+        "enabled": false
+      },
+      "sonoscli": {
+        "enabled": false
+      },
+      "spotify-player": {
+        "enabled": false
+      },
+      "things-mac": {
+        "enabled": false
+      },
+      "wacli": {
+        "enabled": false
+      }
+    }
+  },
+  "plugins": {
+    "allow": [
+      "openclaw-cozeloop-trace",
+      "openclaw-lark",
+      "coze-openclaw-plugin",
+      "openclaw-weixin",
+      "wecom-openclaw-plugin"
+    ],
+    "entries": {
+      "coze-openclaw-plugin": {
+        "enabled": true,
+        "config": {
+          "apiKey": "${COZE_WORKLOAD_IDENTITY_API_KEY}"
+        }
+      },
+      "feishu": {
+        "enabled": true
+      },
+      "openclaw-cozeloop-trace": {
+        "enabled": true,
+        "config": {
+          "authorization": "Bearer ${COZE_LOOP_API_TOKEN}",
+          "workspaceId": "${COZE_PROJECT_SPACE_ID}"
+        }
+      },
+      "openclaw-lark": {
+        "enabled": true
+      },
+      "openclaw-weixin": {
+        "enabled": true
+      },
+      "wecom-openclaw-plugin": {
+        "enabled": true
+      }
+    },
+    "installs": {
+      "coze-openclaw-plugin": {
+        "source": "npm",
+        "spec": "coze-openclaw-plugin@0.1.15",
+        "installPath": "/workspace/projects/extensions/coze-openclaw-plugin",
+        "version": "0.1.15",
+        "resolvedName": "coze-openclaw-plugin",
+        "resolvedVersion": "0.1.15",
+        "resolvedSpec": "coze-openclaw-plugin@0.1.15",
+        "integrity": "sha512-kOXnq3Dt/aZh6GstdBJeDt3FNOWzg7g63IdGGzjuYi+4LSsvgmRBa1PLhbZvnJs851gF3ULltk2Gv+at4gbpjw==",
+        "shasum": "a3f71cc988b173e42bdd98500abfd46389ad23a9",
+        "resolvedAt": "2026-03-26T10:51:19.481Z",
+        "installedAt": "2026-03-26T10:51:43.415Z"
+      },
+      "openclaw-cozeloop-trace": {
+        "source": "npm",
+        "spec": "@cozeloop/openclaw-cozeloop-trace@0.1.1",
+        "installPath": "/workspace/projects/extensions/openclaw-cozeloop-trace",
+        "version": "0.1.1",
+        "resolvedName": "@cozeloop/openclaw-cozeloop-trace",
+        "resolvedVersion": "0.1.1",
+        "resolvedSpec": "@cozeloop/openclaw-cozeloop-trace@0.1.1",
+        "integrity": "sha512-TbKDqaTGZ4uIObeoiT6uPjnI1uQ6QIXp2ZIYJi+gprnJeP+y7YLUPPbDjO4e6r564fy0axhDYdRaCRw/sG15kA==",
+        "shasum": "0ce37514af019b73d270a70e1dd78c116ee2ed53",
+        "resolvedAt": "2026-03-22T07:05:43.344Z",
+        "installedAt": "2026-03-22T07:05:48.394Z"
+      },
+      "openclaw-lark": {
+        "source": "npm",
+        "spec": "@larksuite/openclaw-lark@2026.3.17",
+        "installPath": "/workspace/projects/extensions/openclaw-lark",
+        "version": "2026.4.7",
+        "resolvedName": "@larksuite/openclaw-lark",
+        "resolvedVersion": "2026.3.17",
+        "resolvedSpec": "@larksuite/openclaw-lark@2026.3.17",
+        "integrity": "sha512-7GxqBu7jIe0jmApQXt/9hpvorV04Vpqkcr9LvAOMZJzbhmI0+XZKVJgvzw0Ypxz+UfWJ9tlcSw7WpkBcyqvo8g==",
+        "shasum": "407d4616186cf776c21cf49aa533b80c2ef23530",
+        "resolvedAt": "2026-03-22T07:05:49.587Z",
+        "installedAt": "2026-03-22T07:06:02.176Z"
+      },
+      "openclaw-weixin": {
+        "source": "npm",
+        "spec": "@tencent-weixin/openclaw-weixin@2.1.7",
+        "installPath": "/workspace/projects/extensions/openclaw-weixin",
+        "version": "2.1.7",
+        "resolvedName": "@tencent-weixin/openclaw-weixin",
+        "resolvedVersion": "2.1.7",
+        "resolvedSpec": "@tencent-weixin/openclaw-weixin@2.1.7",
+        "integrity": "sha512-2x5/mbO2IVAsN4aUA41g6i8O84WIJCeFj8kwmB2pGjuxIBVy5FnEI5n52Pc5xroOLbxzW5FXN4cDtc/PvvKghg==",
+        "shasum": "94487d55a4e9e5e091e0997deaf4598f9c79bdba",
+        "resolvedAt": "2026-04-08T10:08:21.481Z",
+        "installedAt": "2026-04-08T10:10:28.616Z"
+      },
+      "wecom-openclaw-plugin": {
+        "source": "npm",
+        "spec": "@wecom/wecom-openclaw-plugin@2026.3.20",
+        "installPath": "/workspace/projects/extensions/wecom-openclaw-plugin",
+        "version": "2026.3.20",
+        "resolvedName": "@wecom/wecom-openclaw-plugin",
+        "resolvedVersion": "2026.3.20",
+        "resolvedSpec": "@wecom/wecom-openclaw-plugin@2026.3.20",
+        "integrity": "sha512-52lXXq7afwR12LdDVTY7vyZZCApXTcB88A9quuejHZm7eLm3NT/0rbowzyvaAsUVbx35vdk6reGl/5pOehYqrA==",
+        "shasum": "c775c283426b85d17b9b31e2b6498be731b7da03",
+        "resolvedAt": "2026-03-24T13:29:00.547Z",
+        "installedAt": "2026-03-24T13:29:13.854Z"
+      }
+    }
+  }
+}
