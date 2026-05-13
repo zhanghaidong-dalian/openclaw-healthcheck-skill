@@ -8,7 +8,10 @@ preview:
     - run
     - --port=5000
   port: 5000
+  startupTimeoutSeconds: 120
   healthCheck:
     path: /
-    intervalSeconds: 10
-    timeoutSeconds: 5
+    intervalSeconds: 15
+    timeoutSeconds: 10
+    failureThreshold: 3
+    successThreshold: 1
