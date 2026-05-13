@@ -9,6 +9,7 @@
 | last_checked_comment_time | 2026-05-13T13:25:26+08:00 |
 | last_comment_id | e58c7504-f88e-4c3a-8103-f4d6e3a4d9be |
 | total_comments | 118 条 |
+| last_release | v4.8.8 (2026-05-13) |
 
 ## 已确认 v4.8.0 已实现功能（无需重复开发）
 
