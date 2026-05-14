@@ -3,11 +3,8 @@ version: "1.0.0"
 preview:
   type: openclaw
   command:
-    - node
-    - /usr/lib/node_modules/openclaw/openclaw.mjs
-    - gateway
-    - run
-    - --port=5000
+    - /bin/bash
+    - /workspace/projects/start-gateway.sh
   port: 5000
   startupTimeoutSeconds: 120
   healthCheck:
