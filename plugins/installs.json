@@ -5,7 +5,7 @@
   "compatRegistryVersion": "f495518e4bb408b5b516ec1add5c2c1850580753e490d00c996d690c24523e34",
   "migrationVersion": 1,
   "policyHash": "0bb09e8ff609ef53bc3ae36a6012e57a7ea29cc682d3c89dc61fc3e568e57c0d",
-  "generatedAtMs": 1778680247088,
+  "generatedAtMs": 1778743381203,
   "refreshReason": "migration",
   "installRecords": {
     "coze-openclaw-plugin": {
