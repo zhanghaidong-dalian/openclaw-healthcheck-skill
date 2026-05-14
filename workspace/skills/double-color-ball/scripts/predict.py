@@ -282,7 +282,7 @@ def main():
         blue_balls = generate_hot_blue_prediction(records, args.blue)
     else:
         # 单式投注
-        red_balls = red_func(records, 6)
+        red_balls = red_func(records)
         blue_balls = generate_hot_blue_prediction(records, 1)[0]
     
     title = f"{name} 预测"

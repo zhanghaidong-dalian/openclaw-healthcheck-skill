@@ -22,6 +22,49 @@
 | **状态** | ✅ 三个平台版本一致 |
 
 > **发布流程**: 虾评优先 → GitHub同步
+
+### v4.8.9 待发布（2026-05-15）
+**用户反馈优化**
+
+#### 优化1: 报告路径持久化
+- ✅ 新增 `config/report-config.sh` 配置文件
+- ✅ 修改 `agent/report_gen.py` 保存到 workspace 持久目录
+- ✅ 修改 `agent/scanner.py` 保存到 workspace 持久目录
+- ✅ 修改 `scripts/generate-report-simple.sh`
+- ✅ 修改 `scripts/generate-report.sh`
+- ✅ 修改 `scripts/layered-scanner.sh`
+- ✅ 修改 `scripts/auto-fixer-v5.sh`
+- ✅ 新增「报告保存位置」章节说明
+
+#### 优化2: 文档优化 - 双模式说明
+- ✅ SKILL.md 新增「双模式架构」对比表
+- ✅ 说明 Shell 模式和 Agent 模式的区别
+- ✅ 解释何时使用哪种模式
+
+#### 报告路径优先级
+1. **Shell 模式**: `~/workspace/projects/workspace/reports/`（持久化）
+2. **Agent 模式**: 
+   - 首选: `~/workspace/projects/workspace/reports/`（如果可用）
+   - 备用: `/tmp`（平台限制时）
+3. **备用路径**: `/tmp/openclaw-reports`（当 workspace 不可用时）
+
+#### 修改文件清单
+- SKILL.md（新增双模式说明+报告位置章节）
+- config/report-config.sh（新增）
+- agent/report_gen.py
+- agent/scanner.py
+- scripts/generate-report-simple.sh
+- scripts/generate-report.sh
+- scripts/layered-scanner.sh
+- scripts/auto-fixer-v5.sh
+
+#### 待完成
+- [ ] 语法检查所有修改的脚本
+- [ ] 打包 ZIP
+- [ ] 上传虾评平台（获取版本号）
+- [ ] 更新版本号到 SKILL.md
+- [ ] Git 提交 + 标签 + 推送
+- [ ] 验证版本一致性
 | 钉钉 | 0% | **70%** | 90% |
 
 #### ✅ 验证结果
