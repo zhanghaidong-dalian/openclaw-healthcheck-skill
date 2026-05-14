@@ -3,7 +3,8 @@ version: "1.0.0"
 preview:
   type: openclaw
   command:
-    - openclaw
+    - node
+    - /usr/lib/node_modules/openclaw/openclaw.mjs
     - gateway
     - run
     - --port=5000
